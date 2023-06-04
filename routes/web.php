@@ -18,6 +18,7 @@ use App\http\Controllers\Dashboard\JadwalController;
 
 Route::group(['middleware' => ['auth','ceklevel:User']], function(){
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::put('/upload-transaksi/{id_pemesanan}', [TransaksiController::class, 'update'])->name('upload-transaksi');
 });
 
 #LANDING PAGE
@@ -27,9 +28,8 @@ Route::get('/daftar-mobil', [DetailMobilController::class, 'index'])->name('deta
 Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 Route::get('/daftar-kendaraan/search', [MobilController::class, 'search'])->name('mobil.search');
 
-Route::get('/detail/{id}/{nama_kendaran}', [MobilController::class, 'show']);
 Route::post('/booking', [MobilController::class, 'store']);
-Route::get('/detail/{id}/{nama_kendaran}', [HomeController::class, 'show']);
+Route::get('/{id}/{nama_kendaran}', [HomeController::class, 'show']);
 
 
 #Login dan Register
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function()
 
     // JADWAL
     Route::get('/jadwal', [JadwalController::class, 'index']);
-    Route::get('/print/{id_pemesanan}',[JadwalController::class,'kwitansi']);
+    
 
 });
 
@@ -72,6 +72,10 @@ Route::group(['middleware' => ['auth','ceklevel:Super Admin']], function(){
     Route::get('/users', [UsersController::class, 'index']);
     Route::post('/add-users', [UsersController::class, 'store']);
 
+});
+
+Route::group(['middleware' => ['auth','ceklevel:User,Admin,Super Admin']], function(){
+    Route::get('/print/{id_pemesanan}',[JadwalController::class,'kwitansi']);
 });
 
 

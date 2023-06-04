@@ -12,7 +12,7 @@ class PemesananController extends Controller
 {
     public function index()
     {
-        $totalPrice = Pemesanan::where('status','=', 1)
+        $totalPrice = Pemesanan::where('status','=', 2)
                      ->sum('total_harga');
         $formattedPrice = number_format($totalPrice, 2, ',', '.');
 

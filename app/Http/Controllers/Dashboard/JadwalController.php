@@ -17,7 +17,7 @@ class JadwalController extends Controller
     public function index()
     {
         $jadwal =  DB::table('pemesanans')
-        ->where('status', '=', 1)
+        ->where('status', '=', 2)
         ->get();
         
         return view('dashboard.jadwal',compact('jadwal'));

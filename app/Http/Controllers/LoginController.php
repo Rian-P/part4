@@ -50,10 +50,13 @@ class LoginController extends Controller
         // Periksa level pengguna setelah berhasil login
         $user = Auth::user();
         if ($user->level == 'Admin') {
+            $request->session()->put('admin', true);
             return redirect('/dashboard');
         } elseif ($user->level == 'User') {
+            $request->session()->put('user', true);
             return redirect('/');
         } elseif ($user->level == 'Super Admin') {
+            $request->session()->put('admin', true);
             return redirect('/dashboard');
         } else {
             // Level pengguna tidak valid
@@ -66,6 +69,7 @@ class LoginController extends Controller
         return redirect('/login');
     }
 }
+
 
 
      public function logout(Request $request){

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
 use App\Models\Pemesanan;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 

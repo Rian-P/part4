@@ -65,7 +65,7 @@
                             @if($pemesanan->status == null)
                              <div class="badge badge-warning">Belum Melakukan Pembayaran</div>
                             @elseif($pemesanan->status == 1)
-                              <div class="badge badge-success">Menunggu Persetujuan</div>
+                              <div class="badge badge-warning">Menunggu Persetujuan</div>
                             @else
                             <div class="badge badge-success">Disetujui</div>
                             @endif

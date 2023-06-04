@@ -9,7 +9,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>prapatan jaya trans</title>
+        <title>Prapatan Jaya Trans</title>
         
       
     </head>
@@ -108,8 +108,8 @@
                                         <select name="sopir" id="sopir" required
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                             <option selected disabled value="">-- Opsi Sopir --</option>
-                                            <option value="Iya">Iya</option>
-                                            <option value="Tidak">Tidak</option>
+                                            <option value="Menggunakan Sopir">Menggunakan Sopir</option>
+                                            <option value="Tidak Menggunakan Sopir">Tidak Menggunakan Sopir</option>
                                         </select>
                                     </div>
                                 </div>
@@ -138,9 +138,9 @@
                                             class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Harga
                                             Sewa</label>
                                         <input type="text" id="harga_sewa" name="harga_sewa"
-                                            value=" Rp. {{ $detail_kendaraan->harga_24_jam }}"
+                                                value="{{$detail_kendaraan->harga_24_jam}}"
                                             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                            placeholder="Harga Sewa" required readonly>
+                                            placeholder="Harga Sewa" readonly required>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-3/12 px-4">
@@ -148,10 +148,7 @@
                                         <label for="tanggal_ambil"
                                             class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Tanggal
                                             Ambil</label>
-                                        <input type="date" id="tanggal_ambil" name="tanggal_ambil"
-                                            min="<?= date('Y-m-d') ?>"
-                                            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
-                                            placeholder="Tanggal Ambil" required>
+                                        <input type="date" id="tanggal_ambil" name="tanggal_ambil" min="<?= date('Y-m-d') ?>"  class="form-control" id="exampleFormControlInput1" placeholder="Tanggal Ambil" required>
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-3/12 px-4">
@@ -191,15 +188,13 @@
                                     <label for="total_harga"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Harga
                                         Total</label>
-                                    <input type="text" name="total_harga" id="total_harga"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
-                                        placeholder="Harga Total" readonly required>
+                                    <input type="text" name="total_harga" id="total_harga" class="form-control" id="exampleFormControlInput1" placeholder="Harga Total" readonly required>
                                 </div>
                             </div>
                             <hr class="mt-6 border-b-1 border-blueGray-300">
 
                             <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                                foto ktp Me
+                                Foto KTP
                             </h6>
 
                             <div class="w-full lg:w-6/12 px-4">
@@ -242,28 +237,31 @@
 
                 reader.readAsDataURL(file);
             });
+
         </script>
+
+         <script>
+          function hitungTotalHarga() {
+             const hargaSewa = document.getElementById('harga_sewa').value;
+             const tanggalAwal = new Date(document.getElementById('tanggal_ambil').value);
+             const tanggalAkhir = new Date(document.getElementById('tanggal_kembali').value);
+
+            const selisihHari = Math.round((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24));
+            document.getElementById('total_harga').value = hargaSewa * selisihHari;
+          }
+
+            function setKembali() {
+                var ambil = document.getElementById("waktu_ambil").value;
+                var ambilTime = new Date("1970-01-01T" + ambil + ":00");
+                var kembaliTime = new Date(ambilTime.getTime());
+                var kembali = kembaliTime.toTimeString().slice(0, 5);
+                document.getElementById("waktu_kembali").value = kembali;
+              }
+             
+            </script>
     </body>
 
     </html>
 @endsection
 
 
-<script>
-    function hitungTotalHarga() {
-        const hargaSewa = document.getElementById('harga_sewa').value;
-        const tanggalAwal = new Date(document.getElementById('tanggal_ambil').value);
-        const tanggalAkhir = new Date(document.getElementById('tanggal_kembali').value);
-
-        const selisihHari = Math.round((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24));
-        document.getElementById('total_harga').value = hargaSewa * selisihHari;
-    }
-
-    function setKembali() {
-        var ambil = document.getElementById("waktu_ambil").value;
-        var ambilTime = new Date("1970-01-01T" + ambil + ":00");
-        var kembaliTime = new Date(ambilTime.getTime());
-        var kembali = kembaliTime.toTimeString().slice(0, 5);
-        document.getElementById("waktu_kembali").value = kembali;
-    }
-</script>
