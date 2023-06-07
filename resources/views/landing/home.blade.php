@@ -204,6 +204,9 @@
 
         <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
+            @php
+             $kendaraan  = $kendaraan->random(3);
+            @endphp
                 <div class="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4">
                     @foreach ($kendaraan as $row)
                         <div class="max-w-sm rounded overflow-hidden shadow-lg" >
