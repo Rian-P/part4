@@ -34,8 +34,8 @@
         @include('sweetalert::alert')
 
         <section class="mt-0">
-            <form class="flex flex-col" method="post" action="/sign-in">
-                {{ csrf_field() }}
+            <form class="flex flex-col" method="post" action="{{ route('login.store') }}">
+                @csrf
                 <div class="relative inline-block ">
                     <a class="block text-white text-sm font-bold mb-3 ml-2">Alamat Email</a>
                     <div>

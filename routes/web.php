@@ -5,15 +5,14 @@ use App\http\Controllers\landing\HomeController;
 use App\http\Controllers\landing\MobilController;
 use App\http\Controllers\landing\DetailMobilController;
 use App\http\Controllers\landing\TransaksiController;
-use App\http\Controllers\LoginController;
-use App\http\Controllers\landing\RegisterController;
-
-
 use App\http\Controllers\Dashboard\DashboardController;
 use App\http\Controllers\Dashboard\UsersController;
 use App\http\Controllers\Dashboard\KendaraanController;
 use App\http\Controllers\Dashboard\PemesananController;
 use App\http\Controllers\Dashboard\JadwalController;
+
+
+require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => ['auth','ceklevel:User']], function(){
@@ -30,17 +29,6 @@ Route::get('/daftar-kendaraan/search', [MobilController::class, 'search'])->name
 
 Route::post('/booking', [MobilController::class, 'store']);
 Route::get('/{id}/{nama_kendaran}', [HomeController::class, 'show']);
-
-
-#Login dan Register
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/registrasi', [RegisterController::class, 'store']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/sign-in', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout']);
-Route::get('/logout-user', [LoginController::class, 'logoutUser']);
-
-
 
 
 Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function(){

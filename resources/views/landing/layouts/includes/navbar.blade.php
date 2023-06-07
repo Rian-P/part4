@@ -106,7 +106,7 @@
                 @if (Auth::check() && Auth::user()->level == 'User')
                 <p class="nama-user pr-4">{{ Auth::user()->nama }}</p>
                 @else
-                <a href="{{ route('login') }}" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">Login</a>
+                <a href="{{ route('login.index') }}" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">Login</a>
                 @endif
 
 

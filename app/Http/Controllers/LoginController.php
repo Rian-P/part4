@@ -79,12 +79,12 @@ class LoginController extends Controller
         return redirect('/login');         
     }
 
-     public function logoutUser(Request $request){
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/');         
-    }
+    //  public function logoutUser(Request $request){
+    //     Auth::logout();
+    //     request()->session()->invalidate();
+    //     request()->session()->regenerateToken();
+    //     return redirect('/');         
+    // }
     
 
 }
