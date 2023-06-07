@@ -71,7 +71,7 @@
                     Rp. {{ $data->total_harga }}
                 </td>
                 <td class="px-6 py-4 text-right">
-                    @if ($data->status == null)
+                    @if ($data->status == NULL )
                     <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Belum Melakukan Pembayaran</a>
                     @elseif($data->status == 1)
                     <a href="#" class="font-medium text-yellow-600 dark:yellow-red-500 hover:underline">Menunggu Persetujuan</a>

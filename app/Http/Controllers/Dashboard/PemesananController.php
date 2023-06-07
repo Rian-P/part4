@@ -64,8 +64,13 @@ public function approve($id){
                 ->update([
                     'status' => 2
                 ]);
-    return redirect()->back()->with('status','Data Telah Diaprove');
+
+    alert()->success('Berhasil','Data Berhasil diuprove');
+    return redirect()->route('order')->with('success','Data Berhasil Diuprove');
 }
+
+
+
 
 
 

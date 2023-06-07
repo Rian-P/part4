@@ -8,11 +8,11 @@
               <div class="col-md-12 grid-margin">
                 <div class="row">
                   <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                   @if (Auth::check() && Auth::user()->level == 'Admin')
-                             <h3 class="font-weight-bold">Selamar Datang, {{Auth::user()->nama}}</h3>
-                            @else
-                            @endif
-                   
+                   @if (Auth::check() && Auth::user()->level == 'Super Admin')
+                      <h3 class="font-weight-bold">Selamar Datang, {{Auth::user()->nama}}</h3>
+                  @else
+                  <h3 class="font-weight-bold">Selamar Datang, {{Auth::user()->nama}}</h3>
+                  @endif           
                     <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
                   </div>
                 </div>

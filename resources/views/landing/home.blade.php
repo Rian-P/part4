@@ -1,6 +1,8 @@
 @extends('landing.layouts.app')
 
 @section('content')
+@include('sweetalert::alert')
+
     <!DOCTYPE html>
     <html>
 

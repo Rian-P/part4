@@ -30,7 +30,7 @@
             <form class="flex flex-col" method="POST" action="/registrasi">
               @csrf
                 <div class="relative inline-block ">
-                    <a class="block text-white text-sm font-bold mb-3 ml-2">nama lengkap</a>
+                    <a class="block text-white text-sm font-bold mb-3 ml-2">Nama lengkap</a>
                     <div>
                     <input class="rounded-lg border border-gray-300 mb-3 px-2 py-2 w-full" name="nama" type="text" placeholder="Tulis nama di sini" required />
                     <svg class="absolute top-10 right-4" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,8 +66,8 @@
                     <div>
                 <a class="block text-gray-400 text-sm font-bold mb-1 ml-2 py-2">Katasandi Minimal 8 Huruf (terdiri dari huruf, angka dan karakter spesial)</a>
                     </div>
-                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="{{ route('login.index') }}" class="text-indigo-500 hover:text-indigo-700 font-semibold">login</a></p>
-                <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">register</button>
+                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="/login" class="text-indigo-500 hover:text-indigo-700 font-semibold">login</a></p>
+                <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">Register</button>
             </form>
         </section>
     </main>

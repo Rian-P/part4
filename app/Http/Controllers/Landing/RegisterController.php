@@ -24,8 +24,8 @@ class RegisterController extends Controller
         $users->password = $request->input('password');
        
     $users->save();
-    alert()->success('Tambah','Data Berhasil Ditambahkan');
-    return redirect()->route('login.index')->with('success',' Data Berhasil Ditambahkan ');
+    alert()->success('Berhasil','Akun Berhasil dibuat');
+    return redirect()->route('login')->with('success',' Data Berhasil Ditambahkan ');
     }
 
    

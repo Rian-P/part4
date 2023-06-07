@@ -19,8 +19,8 @@ class TransaksiController extends Controller
 
     public function update(Request $request, $id)
     {
-        $pemesanan = Pemesanan::find($id);
-
+        $pemesanan = Pemesanan::where('id_pemesanan', $id)->first(); 
+    
         if ($request->hasFile('bukti_tf')) {
             $file = $request->file('bukti_tf');
             $extension = $file->getClientOriginalExtension();
@@ -28,10 +28,13 @@ class TransaksiController extends Controller
             $file->storeAs('image/transfer/', $filename);
             $pemesanan->bukti_tf = $filename;
         }
+    
         $pemesanan->status = 1;
-        $pemesanan->save();
+        $pemesanan->save(); 
+        alert()->success('Berhasil','Bukti TF Berhasil diupload');
         return redirect()->back()->with('success', 'Bukti Transfer berhasil diupload');
     }
+    
     
 
 }

@@ -31,6 +31,8 @@
             </div>
         @endif
 
+        @include('sweetalert::alert')
+
         <section class="mt-0">
             <form class="flex flex-col" method="post" action="/sign-in">
                 {{ csrf_field() }}
@@ -53,8 +55,8 @@
                     <div>
                 <a class="block text-gray-400 text-sm font-bold mb-1 ml-2 py-2">Katasandi Minimal 8 Huruf (terdiri dari huruf, angka dan karakter spesial)</a>
                     </div>
-                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="{{ route('register.index') }}" class="text-indigo-500 hover:text-indigo-700 font-semibold">register</a></p>
-                <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">login</button>
+                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="/register" class="text-indigo-500 hover:text-indigo-700 font-semibold">Register</a></p>
+                <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">Login</button>
             </form>
         </section>
     </main>

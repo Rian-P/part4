@@ -33,7 +33,7 @@ Route::get('/{id}/{nama_kendaran}', [HomeController::class, 'show']);
 
 
 #Login dan Register
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/registrasi', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/sign-in', [LoginController::class, 'login']);
@@ -58,10 +58,11 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function()
     Route::get('/pemesanan', [PemesananController::class, 'index'])->name('order');
     Route::get('/tambah-pemesanan', [PemesananController::class, 'insert']);
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
-    Route::get('/approve/{id_pemesanan}',[PemesananController::class,'approve']);
+    Route::get('/approve/{id}', [PemesananController::class, 'approve']);
+    
 
     // JADWAL
-    Route::get('/jadwal', [JadwalController::class, 'index']);
+    Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
     
 
 });
