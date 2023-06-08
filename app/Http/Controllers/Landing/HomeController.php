@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {   
-        $kendaraan = Kendaraan::inRandomOrder()->take(6)->get(); 
+        $kendaraan = Kendaraan::inRandomOrder()->take(3)->get(); 
         return view('landing.home',compact('kendaraan'));
     }
     

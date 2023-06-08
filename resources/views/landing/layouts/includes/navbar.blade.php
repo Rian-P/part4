@@ -101,15 +101,20 @@
     <div class="hidden mobile-menu">
         <ul class="">
             @if (Auth::check())
-            <li><a class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">
-                    <span
-                        class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">{{ Auth::user()->nama }}</span>
-                    <span
-                        class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">{{ Auth::user()->email }}</span>
-
-                </a></li>
+            <li>
+            <a class="flex items-center text-sm px-2 py-4 hover:bg-green-500 transition duration-300" href="#">
+            <img class="w-8 h-8 rounded-full mr-2" src="images/icon/profile.png" alt="user photo">
+            <div>
+                <span class="block">{{ Auth::user()->nama }}</span>
+                <span class="block text-xs">{{ Auth::user()->email }}</span>
+            </div>
+        </a>
+    </li>
             @else
             @endif
+            <li class="active"><a href="{{ route('login.index') }}"
+                    class="block text-sm px-2 py-4 text-black bg-green-500 font-semibold hover:text-green-500  transition duration-300">Login</a>
+            </li>
             <li class="active"><a href="{{ route('home.index') }}"
                     class="block text-sm px-2 py-4 text-black bg-green-500 font-semibold hover:text-green-500  transition duration-300">Home</a>
             </li>
@@ -118,10 +123,11 @@
             @if (Auth::check() && Auth::user()->level == 'User')
             <li><a href="{{ route('transaksi.index') }}"
                     class="block text-sm px-2 py-4 text-black bg-green-500 font-semibold hover:text-green-500  transition duration-300">Transaksi</a></li>
+                    <li><a href="/logout"
+                    class="block text-sm px-2 py-4 text-black bg-green-500 font-semibold hover:text-green-500  transition duration-300">Logout</a></li>
             @else
             @endif
-            <li><a href="#contact"
-                    class="block text-sm px-2 py-4 text-black bg-green-500 font-semibold hover:text-green-500  transition duration-300">Contact Us</a></li>
+            
         </ul>
     </div>
     <script>
