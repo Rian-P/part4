@@ -26,6 +26,6 @@
     <footer class=" bg-white text-black-100 body-font">
         @include('landing.layouts.includes.footer')
     </footer>
-    <script src="{{ asset('js/autorefresh.js') }}"></script>
+  
 </body>
 </html>
