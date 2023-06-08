@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\landing\HomeController;
-use App\http\Controllers\landing\MobilController;
-use App\http\Controllers\landing\DetailMobilController;
-use App\http\Controllers\landing\TransaksiController;
-use App\http\Controllers\Dashboard\DashboardController;
-use App\http\Controllers\Dashboard\UsersController;
-use App\http\Controllers\Dashboard\KendaraanController;
-use App\http\Controllers\Dashboard\PemesananController;
+use App\Http\Controllers\Landing\HomeController;
+use App\http\Controllers\Landing\MobilController;
+use App\Http\Controllers\Landing\DetailMobilController;
+use App\Http\Controllers\Landing\TransaksiController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UsersController;
+use App\Http\Controllers\Dashboard\KendaraanController;
+use App\Http\Controllers\Dashboard\PemesananController;
 use App\http\Controllers\Dashboard\JadwalController;
 
 

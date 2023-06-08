@@ -1,7 +1,7 @@
 <?php
 
-use App\http\Controllers\LoginController;
-use App\http\Controllers\landing\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Landing\RegisterController;
 
 #Login dan Register
 Route::group(['middleware' => ['guest']], function(){

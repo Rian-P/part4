@@ -21,7 +21,6 @@
 
             <div class=" px-5 py-24 mx-auto  lg:w-4/6 mx-auto">
                 <div>
-
                     <img src="{{ asset('storage/image/kendaraan/' . $detail_kendaraan->image) }}" alt=" random imgee"
                         class="w-full object-cover object-center rounded-lg shadow-md">
 

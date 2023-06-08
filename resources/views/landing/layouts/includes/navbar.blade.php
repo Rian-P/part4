@@ -1,109 +1,43 @@
 <!-- Navbar -->
 
-<!-- Navbar -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="/build/tailwind.css">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <title></title>
-</head>
-
-<body>
-    <nav class="bg-gray-100 border-gray-200 pt-6 dark:bg-gray-900">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
-            <a class="flex items-center">
-
-                <img src="images/icon/iconbg.png" class="h-6 mr-3 sm:h-9" alt="prapatan jaya" />
-                <span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">Prapatan Jaya Trans</span>
-            </a>
-            <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-            <div class="flex items-center " id="dropdownNavbarLink">
-                <div class="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
-                    <div class="flex items-center" @click.away="open = false" class="" x-data="{ open: false }">
-                        <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
-                            <li>
-                                <a href="{{ route('home.index') }}" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('mobil.index') }}" class="text-gray-900 dark:text-white hover:underline">Layanan Sewa</a>
-                            </li>
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <link rel="stylesheet" href="/build/tailwind.css">
+		<title>prapatan jaya trans</title>
+		<link rel="stylesheet" href="./css/tailwind.css">
+	</head>
+	<body>
+		<!-- Navbar goes here -->
+		<nav class="bg-gray-100 border-gray-200 pt-6 dark:bg-gray-900 shadow-lg">
+			<div class="max-w-6xl mx-auto px-4">
+				<div class="flex justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
+					<div class="flex flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
+						<div>
+							<!-- Website Logo -->
+							<a href="/" class="flex items-center py-4 px-2">
+								<img src="images/icon/iconbg.png" alt="Logo" class="h-8 w-8 mr-2">
+								<span class="font-semibold text-black-500 text-lg">prapatan jaya trans</span>
+							</a>
+						</div>
+						<!-- Primary Navbar items -->
+						<div class="hidden md:flex items-center space-x-1">
+							<a href="{{ route('home.index') }}" class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold ">Home</a>
+							<a href="{{ route('mobil.index') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Layanan Sewa</a>
                             @if (Auth::check() && Auth::user()->level == 'User')
-                            <li>
-                                <a href="{{ route('transaksi.index') }}" class="text-gray-900 dark:text-white hover:underline">Transaksi</a>
-                            </li>
+							<a href="{{ route('transaksi.index') }}" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Transaksi</a>
                             @else
                             @endif
-
-
-                            <li>
-                                <button @click="open = !open" class="text-gray-900 dark:text-white hover:underline">
-                                    <span>Tentang Kami</span>
-                                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{ 'rotate-180': open, 'rotate-0': !open }" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                                <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full md:max-w-screen-sm md:w-screen mt-2 origin-top-right z-30">
-                                    <div class="px-2 pt-2 pb-4 bg-white rounded-md shadow-lg dark-mode:bg-gray-700">
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                                <div class="bg-teal-500 text-white rounded-lg p-3">
-                                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="md:h-6 md:w-6 h-4 w-4">
-                                                        <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="ml-3">
-                                                    <p class="font-semibold">informasi</p>
-
-                                                </div>
-                                            </a>
-
-                                            <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
-                                                <div class="bg-teal-500 text-white rounded-lg p-3">
-                                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="md:h-6 md:w-6 h-4 w-4">
-                                                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="ml-3">
-                                                    <p class="font-semibold">wedding Car</p>
-
-                                                </div>
-                                            </a>
-
-                                            <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
-                                                <div class="bg-teal-500 text-white rounded-lg p-3">
-                                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="md:h-6 md:w-6 h-4 w-4">
-                                                        <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z">
-                                                        </path>
-                                                        <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="ml-3">
-                                                    <p class="font-semibold">Testimoni</p>
-
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                @if (Auth::check() && Auth::user()->level == 'User')
+							<a href="" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Tentang Kami</a>
+						</div>
+					</div>
+					<!-- Secondary Navbar items -->
+					<div class="hidden md:flex items-center space-x-3 ">
+                         @if (Auth::check() && Auth::user()->level == 'User')
                 <p class="nama-user pr-4">{{ Auth::user()->nama }}</p>
                 @else
                 <a href="{{ route('login.index') }}" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">Login</a>
@@ -129,18 +63,59 @@
                                 Saya</a>
                         </li>
                         <li>
-                            <a href="/logout-user" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
                                 out</a>
                         </li>
                     </ul>
                 </div>
+                    </div>
+					<!-- Mobile menu button -->
+					<div class="md:hidden flex items-center">
+						<button class="outline-none mobile-menu-button">
+						<svg class=" w-6 h-6 text-gray-500 hover:text-green-500 "
+							x-show="!showMenu"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path d="M4 6h16M4 12h16M4 18h16"></path>
+						</svg>
+					</button>
+					</div>
+				</div>
+			</div>
+			<!-- mobile menu -->
+			<div class="hidden mobile-menu">
+				<ul class="">
+                @if (Auth::check())
+                    <li><a class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">
+                    <span class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">{{ Auth::user()->nama }}</span>
+                        <span class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">{{ Auth::user()->email }}</span>
+                        
+                    </a></li>
+                    @else
+                        @endif
+					<li class="active"><a href="{{ route('home.index') }}" class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
+					<li><a href="{{ route('mobil.index') }}" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Layanan Sewa</a></li>
+                    @if (Auth::check() && Auth::user()->level == 'User')
+					<li><a href="{{ route('transaksi.index') }}" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Transaksi</a></li>
+                    @else
+                            @endif
+					<li><a href="#contact" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact Us</a></li>
+				</ul>
+			</div>
+			<script>
+				const btn = document.querySelector("button.mobile-menu-button");
+				const menu = document.querySelector(".mobile-menu");
 
-            </div>
-
-        </div>
-    </nav>
-
-
-</body>
-
+				btn.addEventListener("click", () => {
+					menu.classList.toggle("hidden");
+				});
+			</script>
+		</nav>
+		
+	</body>
 </html>

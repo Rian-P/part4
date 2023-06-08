@@ -3,12 +3,14 @@
 @section('content')
 <!-- hero -->
 <section class="text-black-600 body-font my-16 mx-auto px-5 md:max-w-6xl">
-    <div class="text-xl">
-        <p>Transaksi </p>
+  <div class="text-xl">
+    <p>Transaksi</p>
+  </div>
 
     </div>
     @if (count($data) > 0)
-    <table class="w-4/5 text-sm text-left text-gray-500 dark:text-gray-400">
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-900 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -88,6 +90,10 @@
     </table>
     </div>
 </section>
+
+
+
+
 
 <!-- Main modal -->
 @include('landing.modalKTP')

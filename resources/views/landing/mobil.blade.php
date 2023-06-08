@@ -12,12 +12,11 @@
     </head>
 
     <body class="">
-
         <section class="font-inter">
             <div class="container px-24 pt-16 pb-6 mx-auto">
-                <div class="flex flex-wrap w-full ">
-                    <div class="container mx-auto flex flex-col px-5 ustify-center items-center">
-                        <div class="w-full md:w-2/3 flex flex-col mb-10 items-center text-center">
+                <div class=" md:flex flex-wrap  ">
+                    <div class="container md:shrink-0 mx-auto flex flex-col px-5 ustify-center items-center">
+                        <div class=" md:h-full md:w-68 md:w-2/3 flex flex-col mb-10 items-center text-center">
                             <h1 class="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900">DAFTAR Mobil</h1>
                             <p class=" leading-relaxed  text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing
                                 elit. Id, dolore at animi ad inventore cupiditate.</p>
@@ -36,12 +35,12 @@
                                     </svg>
                                 </div>
                                 <input type="text" id="simple-search"
-                                    class="bg-background border border-white-300 text-black-900 text-sm rounded-lg focus:ring-black-500  w-full pl-16 pr-10 py-2.5 "
+                                    class="md:flex flex-wrap bg-background border border-white-300 text-black-900 text-sm rounded-lg focus:ring-black-500  w-full pl-16 pr-10 py-2.5 "
                                     type="text" name="search" placeholder="Cari mobil..." required>
     
                             </div>
                             <button type="submit"
-                                class="p-2.5 ml-2 text-sm font-medium text-white bg-red-700 rounded-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 ">cari
+                                class="md:flex flex-wrap p-2.5 ml-2 text-sm font-medium text-white bg-red-700 rounded-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 ">cari
                                 mobil
     
                                 <span class="sr-only"></span>
