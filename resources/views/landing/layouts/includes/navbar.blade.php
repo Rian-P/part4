@@ -24,7 +24,7 @@
                 <div>
                     <!-- Website Logo -->
                     <a href="/" class="flex items-center py-4 px-2">
-                        <img src="images/icon/iconbg.png" alt="Logo" class="h-8 w-8 mr-2">
+                        <img src="{{url('images/icon/iconbg.png')}}" alt="Logo" class="h-8 w-8 mr-2">
                         <span class="font-semibold text-black-500 text-lg">prapatan jaya trans</span>
                     </a>
                 </div>

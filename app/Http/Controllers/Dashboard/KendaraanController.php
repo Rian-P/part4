@@ -41,10 +41,52 @@ class KendaraanController extends Controller
 
 }
 
-public function hapus($id){
-    $hapus = Kendaraan::where('id_mobil', $id);
-    $hapus->delete();
-    return redirect()->back()->with('status','Data Telah Dihapus');
+public function update(Request $request, $id)
+    {
+        try {
+            $kendaraan = Kendaraan::findOrFail($id);
+            
+            $kendaraan->nama_kendaraan = $request->input('nama_kendaraan');
+            $kendaraan->no_kendaraan = $request->input('no_kendaraan');
+            $kendaraan->tipe = $request->input('tipe');
+            $kendaraan->tahun = $request->input('tahun');
+            $kendaraan->max_penumpang = $request->input('max_penumpang');
+            $kendaraan->harga_24_jam = $request->input('harga_24_jam');
+            $kendaraan->deskripsi = $request->input('deskripsi');
+            
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->storeAs('image/kendaraan/', $filename);
+                $kendaraan->image = $filename;
+            }
+            
+            $kendaraan->save();
+            
+            return redirect()->route('kendaraan.index')->with('success', 'Data berhasil diperbarui');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    
+
+
+// public function hapus($id){
+//     $hapus = Kendaraan::where('id_mobil', $id);
+//     $hapus->delete();
+//     return redirect('/kendaraan');
+//     // ->back()->with('status','Data Telah Dihapus');
+// }
+public function hapus($id) {
+    $hapus = Kendaraan::find($id);
+    if ($hapus) {
+        $hapus->delete();
+        return redirect()->back()->with('status', 'Data telah dihapus');
+    } else {
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
+    }
 }
 
 }

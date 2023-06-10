@@ -40,7 +40,11 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function()
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('Kendaraan');
     Route::get('/tambah-kendaraan', [KendaraanController::class, 'insert']);
     Route::post('/add-kendaraan', [KendaraanController::class, 'store']);
-    Route::get('/hapus/{id_mobil}', [KendaraanController::class, 'hapus']);
+    Route::get('/update-kendaraan', [KendaraanController::class, 'update_view']);
+    Route::put('/update-kendaraan/{id}', [KendaraanController::class,'update'])->name('kendaraan.update');
+
+    Route::delete('/hapus/{id_mobil}', [KendaraanController::class, 'hapus'])->name('kendaraan.hapus');
+
 
     // PEMESANAN
     Route::get('/pemesanan', [PemesananController::class, 'index'])->name('order');

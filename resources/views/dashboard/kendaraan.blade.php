@@ -36,8 +36,26 @@
                             <td>{{$kendaraan->tipe}}</td>
                             <td>{{$kendaraan->harga_24_jam}}</td>
                             <td>
-                             <a href="" class="btn btn-warning btn-sm" ><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
+                           
+  <form id="hapusForm" method="post" action="{{ route('kendaraan.hapus', ['id_mobil' => $kendaraan->id_mobil]) }}">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm hapus" data-nama="{{ $kendaraan->nama_kendaraan }}">
+        <i class="fa-solid fa-trash-can"></i>
+    </button>
+</form>
+<form method="POST" action="{{ route('kendaraan.update', ['id' => $kendaraan->id_mobil]) }}">
+    @csrf
+    @method('PUT')
+   
+
+    <button type="submit" href="/kendaraan.update" class="btn btn-primary">Update</button>
+</form>
+
+
+                             <!-- <a href="" class="btn btn-warning btn-sm" ><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
                              <a class="btn btn-danger btn-sm hapus" data-id="{{$kendaraan->id_mobil}}" data-nama="{{$kendaraan->nama_kendaraan}}"  ><i class="fa-solid fa-trash-can"></i></a>
+                            -->
                             </td>
                           </tr>
                         @endforeach
@@ -49,7 +67,33 @@
                 </div>
               </div>
             </div>
-
+            
+<!-- Kode JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $('.hapus').click(function(e) {
+            e.preventDefault();
+            var nama = $(this).data('nama');
+            
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: "Apakah Anda yakin ingin menghapus kendaraan '" + nama + "'?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#hapusForm').submit();
+                }
+            });
+        });
+    });
+</script>
+<!-- 
             <script>
                             $('.hapus').click(function(){
                                 var kendaraanid = $(this).attr('data-id');
@@ -73,7 +117,7 @@
                                     });
                             });
                             
-                        </script>
+                        </script> -->
 
           
            
