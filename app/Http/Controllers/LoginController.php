@@ -49,15 +49,12 @@ class LoginController extends Controller
 
         // Periksa level pengguna setelah berhasil login
         $user = Auth::user();
-        if ($user->level == 'Admin') {
+        if ( $user->level == 'Sopir' || $user->level == 'Admin' || $user->level == 'Super Admin' ) {
             alert()->success('Berhasil','Anda Berhasil Login');
             return redirect('/dashboard');
         } elseif ($user->level == 'User') {
             alert()->success('Berhasil','Anda Berhasil Login');
             return redirect('/');
-        } elseif ($user->level == 'Super Admin') {
-            alert()->success('Berhasil','Anda Berhasil Login');
-            return redirect('/dashboard');
         } else {
             // Level pengguna tidak valid
             Auth::logout();

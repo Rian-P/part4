@@ -13,12 +13,14 @@
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
+       @if(auth()->user()->level == "Super Admin" or auth()->user()->level == "Admin" or auth()->user()->level == "Sopir")
         <li class="nav-item">
           <a class="nav-link" href="/dashboard">
             <i class="icon-grid menu-icon"></i>
             <span class="menu-title">Dashboard</span>
           </a>
         </li>
+        @endif
         @if(auth()->user()->level=="Super Admin")
         <li class="nav-item">
           <a class="nav-link" href="/users">
@@ -27,6 +29,7 @@
           </a>
         </li>
         @endif
+        @if(auth()->user()->level == "Super Admin" or auth()->user()->level == "Admin")
         <li class="nav-item">
           <a class="nav-link" href="/kendaraan">
             <i class="icon-columns menu-icon"></i>
@@ -39,12 +42,15 @@
             <span class="menu-title">Pemesanan</span>
           </a>
         </li>
+        @endif
+        @if(auth()->user()->level == "Super Admin" or auth()->user()->level == "Admin" or auth()->user()->level == "Sopir")
         <li class="nav-item">
           <a class="nav-link" href="/jadwal">
             <i class="icon-grid-2 menu-icon"></i>
             <span class="menu-title">Jadwal</span>
           </a>
         </li>
+        @endif
         @if(auth()->user()->level=="Super Admin")
         <li class="nav-item">
           <a class="nav-link" href="/pemasukan">

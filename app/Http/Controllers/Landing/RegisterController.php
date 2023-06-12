@@ -39,6 +39,7 @@ class RegisterController extends Controller
     
         $user = new User();
         $user->nama = $request->input('nama');
+        $user->image = 'None';
         $user->email = $request->input('email');
         $user->no_hp = $request->input('no_hp');
         $user->level = ($request->input('level') === 'User') ? 'User' : 'User';
@@ -48,7 +49,7 @@ class RegisterController extends Controller
         $user->save();
     
         alert()->success('Berhasil', 'Akun berhasil dibuat');
-        return redirect()->route('/login')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('login.index')->with('success', 'Data berhasil ditambahkan');
     }
     
    

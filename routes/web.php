@@ -31,10 +31,10 @@ Route::post('/booking', [MobilController::class, 'store']);
 Route::get('/{id}/{nama_kendaran}', [HomeController::class, 'show']);
 
 
-Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function(){
+Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin,Sopir']], function(){
 
-    //DASHBOARD
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('.index');
+      //DASHBOARD
+      Route::get('/dashboard', [DashboardController::class, 'index'])->name('.index');
 
     // KENDARAAN
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('Kendaraan');
@@ -44,7 +44,8 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function()
     Route::put('/edit-kendaraan/{id_mobil}', [KendaraanController::class,'update'])->name('kendaraan.update');
     Route::delete('/hapus/{id_mobil}', [KendaraanController::class, 'hapus'])->name('kendaraan.hapus');
 
-
+ // JADWAL
+     Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
 
     // PEMESANAN
     Route::get('/pemesanan', [PemesananController::class, 'index'])->name('order');
@@ -52,14 +53,12 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin']], function()
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
     Route::put('/approve/{id_pemesanan}', [PemesananController::class, 'approve'])->name('upprove');
     Route::put('/edit-sopir/{id}', [PemesananController::class, 'updateSopir']);
-    
-
-    // JADWAL
-    Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+   
     Route::get('/pemasukan', [JadwalController::class, 'pemasukan'])->name('pemasukan');
     
 
 });
+
 
 
 Route::group(['middleware' => ['auth','ceklevel:Super Admin']], function(){

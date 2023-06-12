@@ -66,7 +66,7 @@
                     <div>
                 <a class="block text-gray-400 text-sm font-bold mb-1 ml-2 py-2">Katasandi Minimal 8 Huruf (terdiri dari huruf, angka dan karakter spesial)</a>
                     </div>
-                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="/login" class="text-indigo-500 hover:text-indigo-700 font-semibold">login</a></p>
+                    <p class="mt-4 text-center text-gray-500">Already have an account? <a href="/login" class="text-indigo-500 hover:text-indigo-700 font-semibold">Login</a></p>
                 <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">Register</button>
             </form>
         </section>
