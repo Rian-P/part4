@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 
-    <meta name="description" content="">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -53,7 +51,8 @@
                     </svg>
                   </div>
                     <div>
-                <a class="block text-gray-400 text-sm font-bold mb-1 ml-2 py-2">Katasandi Minimal 8 Huruf (terdiri dari huruf, angka dan karakter spesial)</a>
+                        <p>
+                <a href="/resetPassword" class="block text-gray-400 text-sm font-bold mb-1 ml-2 py-2">lupa sandi forgot ? </a></p>
                     </div>
                     <p class="mt-4 text-center text-gray-500">Already have an account? <a href="/register" class="text-indigo-500 hover:text-indigo-700 font-semibold">Register</a></p>
                 <button class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-44 rounded-xl" type="submit">Login</button>

@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\DB;
 
 class JadwalController extends Controller
 {
+    public function pemasukan(){
+        $totalPrice = Pemesanan::where('status','=', 2)
+                     ->sum('total_harga');
+        $formattedPrice = number_format($totalPrice, 2, ',', '.');
+
+        $pemesanan = Pemesanan::all();
+        return view('dashboard.pemasukan',compact('pemesanan','formattedPrice'));
+    }
+
     public function index()
     {
         $jadwal =  DB::table('pemesanans')

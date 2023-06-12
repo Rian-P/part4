@@ -45,6 +45,14 @@
             <span class="menu-title">Jadwal</span>
           </a>
         </li>
+        @if(auth()->user()->level=="Super Admin")
+        <li class="nav-item">
+          <a class="nav-link" href="/pemasukan">
+            <i class="icon-grid-2 menu-icon"></i>
+            <span class="menu-title">Pemasukan</span>
+          </a>
+        </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link" href="/logout">
               <i class="ti-power-off text-primary menu-icon"></i>

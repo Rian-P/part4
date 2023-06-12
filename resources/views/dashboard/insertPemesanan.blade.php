@@ -26,9 +26,9 @@
                             <label for="exampleFormControlInput1" class="form-label">Nama Sopir</label>
                             <select class="form-select" name="sopir" aria-label="Default select example" required>
                                <option selected disabled value="">-- Pilih Sopir --</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Sopir">Sopir</option>
-                                <option value="User">User</option>
+                               @foreach($supir as $supir)
+                                <option value="{{$supir->nama}}">{{$supir->nama}}</option>
+                                @endforeach
                             </select>
                          </div> 
                           <div class="row">

@@ -27,7 +27,7 @@
     <main class="max-w-lg mx-auto p-8 md:p-12 ">
 
         <section class="mt-0">
-            <form class="flex flex-col" method="POST" action="/registrasi">
+            <form class="flex flex-col" method="POST" action="/register">
               @csrf
                 <div class="relative inline-block ">
                     <a class="block text-white text-sm font-bold mb-3 ml-2">Nama lengkap</a>

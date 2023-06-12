@@ -6,24 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pemesanan;
 use App\Models\Kendaraan;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PemesananController extends Controller
 {
     public function index()
     {
-        $totalPrice = Pemesanan::where('status','=', 2)
-                     ->sum('total_harga');
-        $formattedPrice = number_format($totalPrice, 2, ',', '.');
-
         $pemesanan = Pemesanan::all();
-        return view('dashboard.pemesanan',compact('pemesanan','formattedPrice'));
+        $supir = User::where('level', 'Sopir')->get();
+        return view('dashboard.pemesanan',compact('pemesanan','supir'));
     }
     public function insert()
     {
         $kendaraan = Kendaraan::all();
         $sewa = Kendaraan::all();
-        return view('dashboard.insertPemesanan',compact('kendaraan','sewa'));
+        $supir = User::where('level', 'Sopir')->get();
+        return view('dashboard.insertPemesanan',compact('kendaraan','sewa','supir'));
     }
 
     public function store(Request $request){
@@ -58,7 +58,7 @@ class PemesananController extends Controller
     return redirect()->route('order')->with('success',' Data Berhasil Ditambahkan ');
 }
 
-public function approve($id){
+public function approve(Request $request, $id){
     $approve =  DB::table('pemesanans')
                 ->where('id_pemesanan', $id)
                 ->update([
@@ -66,6 +66,15 @@ public function approve($id){
                 ]);
 
     alert()->success('Berhasil','Data Berhasil diuprove');
+    return redirect()->route('order')->with('success','Data Berhasil Diuprove');
+}
+
+public function updateSopir(Request $request, $id){
+    $sopir = Pemesanan::find($id); 
+    $sopir->sopir = $request->input('sopir'); 
+    $sopir->save();
+
+    alert()->success('Berhasil','Data Berhasil diupdate');
     return redirect()->route('order')->with('success','Data Berhasil Diuprove');
 }
 

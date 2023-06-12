@@ -15,6 +15,10 @@ class TransaksiController extends Controller
         $nama = Auth::user()->nama;
         $data = Pemesanan::where('nama_pelanggan', $nama)->get();
         return view('landing.transaksi',compact('data'));
+
+        $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
+        $data = Pemesanan::where('user_id', $userId)->get(); 
+        return view('landing.transaksi',compact('data'));
     }
 
     public function update(Request $request, $id)

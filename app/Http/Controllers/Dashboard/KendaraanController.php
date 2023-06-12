@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kendaraan;
 
+
 class KendaraanController extends Controller
 {
     public function index()
@@ -41,6 +42,11 @@ class KendaraanController extends Controller
 
 }
 
+public function updateView($id){
+    $kendaraan = Kendaraan::find($id);
+    return view('dashboard.updateKendaraan',compact('kendaraan'));
+}
+
 public function update(Request $request, $id)
     {
         try {
@@ -61,24 +67,14 @@ public function update(Request $request, $id)
                 $file->storeAs('image/kendaraan/', $filename);
                 $kendaraan->image = $filename;
             }
-            
+            alert()->success('Update','Data Berhasil Diupdate');
             $kendaraan->save();
-            
-            return redirect()->route('kendaraan.index')->with('success', 'Data berhasil diperbarui');
+            return redirect()->route('Kendaraan')->with('success', 'Data berhasil diperbarui');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
-    
-
-
-// public function hapus($id){
-//     $hapus = Kendaraan::where('id_mobil', $id);
-//     $hapus->delete();
-//     return redirect('/kendaraan');
-//     // ->back()->with('status','Data Telah Dihapus');
-// }
 public function hapus($id) {
     $hapus = Kendaraan::find($id);
     if ($hapus) {

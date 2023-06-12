@@ -10,9 +10,9 @@
                  <div class="card">
                   <div class="card-body">
                     <div class="modal-header">
-                        <h5 class="modal-title"><strong>Tambah Data Kendaraan</strong></h5>
+                        <h5 class="modal-title"><strong>Update Data Kendaraan</strong></h5>
                     </div>
-                    <form action="{{ route('kendaraan.update', ['id' => $kendaraan->id]) }}" class="form-car pt-4" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('kendaraan.update', ['id_mobil' => $kendaraan->id_mobil]) }}" class="form-car pt-4" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                         <div class="mb-3">
@@ -21,7 +21,9 @@
                           </div> 
                           <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Foto Kendaraan</label>
-                            <input type="file" class="form-control" name="image" id="exampleFormControlInput1" placeholder="Foto Kendaraan" value="{{ $kendaraan->image }}" required>
+                            <input type="file" class="form-control" name="image" id="exampleFormControlInput1" placeholder="Foto Kendaraan" value="{{ $kendaraan->image }}">
+                            <img src="{{asset('storage/image/kendaraan/'.$kendaraan->image)}}"
+                                                alt="Image Kendaraan" width="200px" height="100px" style="padding-top: 10px;" >
                           </div> 
                           <div class="row">
                             <div class="col">
@@ -34,8 +36,7 @@
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Tipe</label>
                                     <select class="form-select" name="tipe" aria-label="Default select example" required>
-                                      <option selected disabled value="">-- Pilih Tipe Kendaraan --</option>
-                                      <option value="{{ $kendaraan->tipe }}"></option>
+                                      <option value="{{ $kendaraan->tipe }}">{{ $kendaraan->tipe }}</option>
                                       <option value="Manual">Manual</option>
                                       <option value="Matic">Matic</option>
                                       <option value="Bus">Bus</option>

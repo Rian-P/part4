@@ -25,7 +25,7 @@
                     <!-- Website Logo -->
                     <a href="/" class="flex items-center py-4 px-2">
                         <img src="{{url('images/icon/iconbg.png')}}" alt="Logo" class="h-8 w-8 mr-2">
-                        <span class="font-semibold text-black-500 text-lg">prapatan jaya trans</span>
+                        <span class="font-semibold text-black-500 text-lg">Prapatan Jaya Trans</span>
                     </a>
                 </div>
                 <!-- Primary Navbar items -->
@@ -53,12 +53,14 @@
                 <a href="{{ route('login.index') }}"
                     class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">Login</a>
                 @endif
+
+                @if (Auth::check() && Auth::user()->level == 'User')
                 <button type="button"
                     class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                     data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 " src="images/icon/profile.png" alt="user photo">
+                    <img class="w-8 h-8 " src="/images/icon/profile.png" alt="user photo">
                 </button>
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                     id="user-dropdown">
@@ -84,6 +86,8 @@
                         </li>
                     </ul>
                 </div>
+                @else
+                @endif
             </div>
             <!-- Mobile menu button -->
             <div class="md:hidden flex items-center">
