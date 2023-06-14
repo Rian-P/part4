@@ -22,4 +22,8 @@ class DashboardController extends Controller
         $data['total_users'] = $total_users;
         return view('dashboard.dashboard',$data);
     }
+
+    public function coba(){
+        return view('dashboard.coba');
+    }
 }

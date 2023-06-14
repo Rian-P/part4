@@ -22,7 +22,7 @@
         verifikasi email
       </h1>
       
-      <form action="#" class="space-y-6 w-ful">
+      <form action="/resetPassword" class="space-y-6 w-ful" method="post">
         <input class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-primary-100"
           type="email" name="email" placeholder="Email address" required="">
         <div>

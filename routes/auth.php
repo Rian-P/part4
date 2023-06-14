@@ -10,6 +10,8 @@ Route::group(['middleware' => ['guest']], function(){
     Route::post('/login', [LoginController::class, 'login'])->name('login.store');
     Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+    
+
 
     Route::get('/resetPassword', [ResetPasswordController::class, 'index'])->name('resetPassword.index');
     Route::get('/konfirmasiPassword', [ResetPasswordController::class, 'resetpassword'])->name('konfirmasiPassword.index');

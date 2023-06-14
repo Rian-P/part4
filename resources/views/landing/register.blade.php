@@ -27,6 +27,7 @@
     <main class="max-w-lg mx-auto p-8 md:p-12 ">
 
         <section class="mt-0">
+        @include('sweetalert::alert')
             <form class="flex flex-col" method="POST" action="/register">
               @csrf
                 <div class="relative inline-block ">

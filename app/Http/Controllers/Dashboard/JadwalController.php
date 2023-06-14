@@ -21,6 +21,7 @@ class JadwalController extends Controller
 
         $pemesanan = Pemesanan::all();
         return view('dashboard.pemasukan',compact('pemesanan','formattedPrice'));
+        return view('dashboard.pemasukan',compact('jadwal'));
     }
 
     public function index()
@@ -32,10 +33,7 @@ class JadwalController extends Controller
         return view('dashboard.jadwal',compact('jadwal'));
     }
     
-    public function coba()
-    {
-        return view('dashboard.coba');
-    }
+    
 
     public function kwitansi($id)
     { 

@@ -90,7 +90,7 @@
                     </td>
                     <td class="px-6 py-4">
                         < <form id="printForm" method="post"
-                            action="{{ route('print', ['id_pemesanan' => $jadwal->id_pemesanan]) }}">
+                            action="{{ route('print', ['id_pemesanan' => $data->id_pemesanan]) }}">
                             @csrf
                             <button type="submit" class="btn btn-success btn-lg p-2 m-2">
                                 Download Invoice

@@ -11,7 +11,7 @@
             sizes="56x56"
             href="images/icon/iconbg.png"
         />
-       
+        
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 

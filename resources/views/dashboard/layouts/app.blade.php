@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/autorefresh.js') }}"></script>
+   
 
     <script>
     $(document).ready(function() {
