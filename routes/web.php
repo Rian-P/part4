@@ -13,6 +13,9 @@ use App\http\Controllers\Dashboard\JadwalController;
 use Illuminate\Support\Facades\Mail;
 
 
+use App\Http\Controllers\ForgotPasswordController;
+
+
 require __DIR__.'/auth.php';
 
 
@@ -29,13 +32,23 @@ Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 Route::get('/daftar-kendaraan/search', [MobilController::class, 'search'])->name('mobil.search');
 
 Route::post('/booking', [MobilController::class, 'store']);
+
+Route::pattern('id', '[0-9]+');
 Route::get('/{id}', [HomeController::class, 'show']);
 
 
-Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin,Sopir']], function(){
-
+Route::group(['middleware' => ['auth','ceklevel:Super Admin,Admin,Sopir']], function(){
+    // JADWAL
     //DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+    Route::post('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+});
+
+
+Route::group(['middleware' => ['auth','ceklevel:Super Admin,Admin']], function(){
+
+    
 
     // KENDARAAN
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('Kendaraan');
@@ -45,8 +58,7 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin,Sopir']], func
     Route::put('/edit-kendaraan/{id_mobil}', [KendaraanController::class,'update'])->name('kendaraan.update');
     Route::delete('/hapus/{id_mobil}', [KendaraanController::class, 'hapus'])->name('kendaraan.hapus');
 
- // JADWAL
-     Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+ 
 
     // PEMESANAN
     Route::get('/pemesanan', [PemesananController::class, 'index'])->name('order');
@@ -54,22 +66,22 @@ Route::group(['middleware' => ['auth','ceklevel:Admin,Super Admin,Sopir']], func
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
     Route::put('/approve/{id_pemesanan}', [PemesananController::class, 'approve'])->name('upprove');
     Route::put('/edit-sopir/{id}', [PemesananController::class, 'updateSopir']);
+    Route::put('/hapus-pemesanan/{id}', [PemesananController::class, 'hapus']);
    
-    
-    Route::get('/pemasukan', [JadwalController::class, 'pemasukan'])->name('pemasukan');
-    Route::get('/pemasukan', [JadwalController::class, 'index'])->name('pemasukan');
-    
 
+    
 });
 
 
 
 Route::group(['middleware' => ['auth','ceklevel:Super Admin']], function(){
+    Route::get('/report', [JadwalController::class, 'report']);
+    Route::get('/pemasukan', [JadwalController::class, 'pemasukan'])->name('pemasukan');
+    Route::post('/sum-pemasukan', [JadwalController::class, 'calculateTotalPrice'])->name('calculateTotalPrice');
     // USERS
     Route::get('/users', [UsersController::class, 'index']);
     Route::post('/add-users', [UsersController::class, 'store']);
-    // Route::delete('/hapus/{id}', [UsersController::class, 'hapus'])->name('user.hapus');
-
+    Route::get('/hapus-users/{id}', [UsersController::class, 'hapus'])->name('user.hapus');
 });
 
 Route::group(['middleware' => ['auth','ceklevel:User,Admin,Super Admin']], function(){
@@ -77,16 +89,11 @@ Route::group(['middleware' => ['auth','ceklevel:User,Admin,Super Admin']], funct
 });
 
 //reset password
-Route::get('/send-email',function(){
-    $data = [
-        'name' => 'Syahrizal As',
-        'body' => 'Testing Kirim Email di Santri Koding'
-    ];
-   
-    Mail::to('alisadikinsyahrizal@gmail.com')->send(new SendEmail($data));
-   
-    dd("Email Berhasil dikirim.");
-});
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 

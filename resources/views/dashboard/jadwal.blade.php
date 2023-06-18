@@ -24,6 +24,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(auth()->user()->level=="Sopir")
+                                    @else
                                     @foreach($jadwal as $jadwal)
                                     <tr>
                                         <td>
@@ -51,6 +53,8 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>

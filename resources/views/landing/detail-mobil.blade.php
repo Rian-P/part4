@@ -85,7 +85,6 @@
                                     <label for="nama_pelanggan"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Nama</label>
                                     @if (Auth::check())
-                                    <input type="text" name="user_id" value="{{ Auth::user()->id }}">
                                     <input type="text" name="nama_pelanggan" id="nama_pelanggan" placeholder="Nama"
                                         value="{{ Auth::user()->nama }}" required readonly
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
@@ -150,29 +149,29 @@
                                         placeholder="Harga Sewa" readonly required>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-3/12 px-4">
+                            <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_ambil"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Tanggal
                                         Ambil</label>
                                     <input type="date" id="tanggal_ambil" name="tanggal_ambil"
-                                        min="<?= date('Y-m-d') ?>" class="form-control" id="exampleFormControlInput1"
+                                        min="<?= date('Y-m-d') ?>" class=" border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" id="exampleFormControlInput1"
                                         placeholder="Tanggal Ambil" required>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-3/12 px-4">
+                            <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_kembali"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Pengembalian</label>
                                     <input type="date" id="tanggal_kembali" name="tanggal_kembali"
                                         min="<?= date('Y-m-d') ?>"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
+                                        class="border-0 px-3 py-3  text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
                                         placeholder="Tanggal Kembali" onchange="hitungTotalHarga()" required>
                                 </div>
                             </div>
                             @if (Auth::check())
-                            <div class="w-full lg:w-3/12 px-4">
+                            <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="waktu_ambil"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Jam
@@ -182,7 +181,7 @@
                                         placeholder="Jam Pengambilan" onchange="setKembali()" required>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-3/12 px-4">
+                            <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="waktu_kembali"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Jam
@@ -230,7 +229,12 @@
                             <i class="fa-solid fa-floppy-disk mr-2"></i> Booking
                         </button>
                         @else
+                        <a href="{{route('login.index')}}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <i class="fa-solid fa-floppy-disk mr-2"></i> Booking
+                        </a>
                         @endif
+                        
                     </form>
                 </div>
             </div>

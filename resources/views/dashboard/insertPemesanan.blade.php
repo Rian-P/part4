@@ -94,15 +94,16 @@
                           <div class="col-5">
                             <div class="mb-3">
                               <label for="exampleFormControlInput1" class="form-label">Foto KTP</label>
-                              <input type="file" name="foto_ktp" class="form-control" id="exampleFormControlInput1" placeholder="Nama" required>
+                              <input type="file" name="foto_ktp" accept=".png, .jpg, .jpeg" class="form-control" id="exampleFormControlInput1" placeholder="Nama" required>
                           </div> 
                           </div>
                         </div>
+                        
                         <div class="row">
                           <div class="col-5">
                             <div class="mb-3">
                               <label for="exampleFormControlInput1" class="form-label">Bukti Transfer</label>
-                              <input type="file" name="bukti_tf" class="form-control" id="exampleFormControlInput1" placeholder="Nama" required>
+                              <input type="file" name="bukti_tf" accept=".png, .jpg, .jpeg"  class="form-control" id="exampleFormControlInput1" placeholder="Nama" required>
                           </div>
                           </div>
                         </div>

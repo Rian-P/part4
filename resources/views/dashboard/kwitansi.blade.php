@@ -64,7 +64,8 @@
 </head>
 <body>
 	<div class="header">
-		<h1 style="text-align: center;">INVOICE</h1>
+		<h1 style="text-align: center;">Kwintansi</h1>
+		<img src="{{url('images/icon/iconbg.png')}}" alt="Logo" class="h-8 w-8 mr-2">
 	</div>
 	<div class="invoice-details">
 		<h4>Customer Name: {{$latter->nama_pelanggan}}</h4>
@@ -75,6 +76,7 @@
 					<th>Nama Kendaraan</th>
 					<th>Sopir</th>
 					<th>Lama Sewa</th>
+					<th>Nomer Hp</th>
 					<th>Harga</th>		
 				</tr>
 			</thead>
@@ -82,6 +84,7 @@
 				<tr>
 					<td>{{$latter->nama_kendaraan}}</td>
 					<td>{{$latter->sopir}}</td>
+					<td>{{$latter->no_hp}}</td>
 					<td>{{ $latter->selisih_hari }} Hari</td>
 					<td>{{$latter->harga_sewa}} / 24 Jam</td>
 					

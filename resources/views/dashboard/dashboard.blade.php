@@ -38,6 +38,7 @@
                   </div>
                 </div>
               </div>
+              @if (Auth::check() && Auth::user()->level == 'Super Admin' || Auth::user()->level == 'Admin' )
               <div class="col-md-6 grid-margin transparent">
                 <div class="row">
                   <div class="col-md-6 mb-4 stretch-card transparent">
@@ -76,6 +77,7 @@
                   </div>
                 </div>
               </div>
+              @endif
             </div>
           
             

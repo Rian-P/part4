@@ -51,20 +51,21 @@
                                             <div class="badge badge-success">{{$user->level}}</div>
                                         </td>
                                         <td class="font-weight-medium">
-                                            <div class="badge badge-success">{{$user->status}}</div>
+                                            <div class="badge badge-success btn-lg">{{$user->status}}</div>
                                         </td>
-                                        <!-- <td>
-                                            <form id="hapusForm" method="POST"
+                                        <td>
+                                            <a class="btn btn-danger hapusUser" data-id="{{$user->id}}" data-nama="{{$user->nama}}" ><i class="fa-solid fa-trash-can"></i></a>
+                                            <!-- <form id="hapusForm" method="POST"
                                                 action="{{ route('user.hapus', ['id' => $user->id]) }}">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-lg hapus p-2 m-2"
+                                                @method('GET')
+                                                <button type="submit" class="btn btn-danger btn-lg hapus-users p-2 m-2"
                                                     data-nama="{{ $user->nama }}">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </button>
-                                            </form>
-                                            
-                                        </td> -->
+                                            </form> -->
+
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -140,11 +141,40 @@
         <!-- content-wrapper ends -->
 
     </div>
+
+
+    <script>
+    $('.hapusUser').click(function() {
+        var usersid = $(this).attr('data-id');
+        var nama = $(this).attr('data-nama');
+        swal({
+                title: "Apa kamu yakin ?",
+                text: "Kamu akan hapus user atas nama " +
+                    nama +
+                    " ",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willUpprove) => {
+                if (willUpprove) {
+                    window.location = "/hapus-users/"+
+                        usersid + ""
+                    swal("Data berhasil dihapus", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Data batal diupprove");
+                }
+            });
+    });
+    </script>
+
     <!-- Kode JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
     $(document).ready(function() {
-        $('.hapus').click(function(e) {
+        $('.hapus-users').click(function(e) {
             e.preventDefault();
             var nama = $(this).data('nama');
 
@@ -164,5 +194,5 @@
             });
         });
     });
-    </script>
+    </script> -->
     @endsection

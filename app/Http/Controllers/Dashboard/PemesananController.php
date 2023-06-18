@@ -79,6 +79,16 @@ public function updateSopir(Request $request, $id){
 }
 
 
+public function hapus($id) {
+    $hapus = Pemesanan::find($id);
+    if ($hapus) {
+        $hapus->delete();
+        return redirect()->back()->with('status', 'Data telah dihapus');
+    } else {
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
+    }
+}
+
 
 
 

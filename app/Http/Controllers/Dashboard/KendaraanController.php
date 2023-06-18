@@ -21,6 +21,11 @@ class KendaraanController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'no_kendaraan' => 'required|unique:kendaraans,no_kendaraan',
+            
+        ]);
+      
         $kendaraan = new Kendaraan();
         $kendaraan->nama_kendaraan = $request->input('nama_kendaraan');
         $kendaraan->no_kendaraan = $request->input('no_kendaraan');
@@ -36,9 +41,11 @@ class KendaraanController extends Controller
             $file->storeAs('image/kendaraan/',$filename);
             $kendaraan->image = $filename;
         }
+       
     $kendaraan->save();
     alert()->success('Tambah','Data Berhasil Ditambahkan');
     return redirect()->route('Kendaraan')->with('success',' Data Berhasil Ditambahkan ');
+   
 
 }
 

@@ -17,8 +17,7 @@ class HomeController extends Controller
     
     
     public function show($id)
-    {
-        
+    {      
         $detail_kendaraan = Kendaraan::findOrFail($id);
         return view('landing.detail-mobil', compact('detail_kendaraan'));
     }

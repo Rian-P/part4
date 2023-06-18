@@ -37,16 +37,19 @@ class UsersController extends Controller
     return redirect()->back()->with('status','Data Telah Ditambahkan');
     }
 
-    // public function hapus($id)
-    // {
-    //     $hapus = User::find($id);
-    //     if ($hapus) {
-    //         $hapus->delete();
-    //         return redirect()->back()->with('status', 'Data telah dihapus');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Data tidak ditemukan');
-    //     }
-    // }
+    public function hapus($id)
+{
+    $hapus = User::find($id);
+    
+    if ($hapus) {
+        $hapus->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
+    
+    return redirect()->back()->with('error', 'Data tidak ditemukan');
+}
+
+
 
     
 

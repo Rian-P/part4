@@ -17,9 +17,9 @@
                 <div class=" md:flex flex-wrap  ">
                     <div class="container md:shrink-0 mx-auto flex flex-col px-5 ustify-center items-center">
                         <div class=" md:h-full md:w-68 md:w-2/3 flex flex-col mb-10 items-center text-center">
-                            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900">DAFTAR Mobil</h1>
-                            <p class=" leading-relaxed  text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing
-                                elit. Id, dolore at animi ad inventore cupiditate.</p>
+                            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900">Daftar Mobil</h1>
+                            <p class=" leading-relaxed  text-gray-400">PT Prapatan Jaya Trans merupakan pusat layanan sewa mobil terbesar di Tegal.Selain itu, PT Prapatan Jaya Trans menyediakan armada terlengkap.Dengan armada yang lengkap, PT Prapatan Jaya Trans siap melayani kebutuhan akomodasimu dengan pelayanan terbaik dan profesional.
+</p>
                         </div>
                     </div>
                     <div class="flex w-full justify-center items-end">

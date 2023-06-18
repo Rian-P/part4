@@ -10,28 +10,18 @@ use Illuminate\Queue\SerializesModels;
 class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $data;
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($data)
+
+    public $otp;
+
+    public function __construct($otp)
     {
-        $this->data = $data;
+        $this->otp = $otp;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build($data)
+    public function build()
     {
-        return $this->from('theemail@gmail.com', 'Me')
-        ->to($data['email'], $data['name'])
-        // ->to($email, $name)
-        ->view('landing.konfirmasiPassword')
-        ;
+        return $this->subject('Email From AllPHPTricks.com')
+                      ->view('landing.resetpassword')
+                    ->with('otp', $this->otp);
     }
 }
