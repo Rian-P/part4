@@ -98,7 +98,7 @@
                             </form>
                     </td>
                 </tr>
-
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -109,10 +109,9 @@
 
 
 <!-- Main modal -->
-@include('landing.modalKTP')
-@include('landing.modalViewKTP')
 
-@endforeach
+
+
 
 @else
 <p>Belum ada pemesanan yang ditambahkan.</p>

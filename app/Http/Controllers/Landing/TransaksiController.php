@@ -12,13 +12,13 @@ class TransaksiController extends Controller
     
     public function index()
     {
-        $nama = Auth::user()->nama;
+        $nama = Auth::user()->id;
         $data = Pemesanan::where('nama_pelanggan', $nama)->get();
         return view('landing.transaksi',compact('data'));
 
-        $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
-        $data = Pemesanan::where('user_id', $userId)->get(); 
-        return view('landing.transaksi',compact('data'));
+        // $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
+        // $data = Pemesanan::where('user_id', $userId)->get(); 
+        // return view('landing.transaksi',compact('data'));
     }
 
     public function update(Request $request, $id)
