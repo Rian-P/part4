@@ -8,12 +8,8 @@ use App\Models\Pemesanan;
 use App\Models\jadwals;
 use PDF;
 use FPDF;
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
-
-
 use Illuminate\Support\Facades\DB;
 
 class JadwalController extends Controller
@@ -38,10 +34,24 @@ class JadwalController extends Controller
         ->where('status', '=', 2)
         ->get();
 
-        $sopir = Auth::user()->sopir;
-        $data = Pemesanan::where('sopir', $sopir)->get();
+        $sopir = Auth::user()->id;
+
+            $response = DB::table('pemesanans as u')->select(
+                'u.id_pemesanan as pemesananId',
+                'u.nama_pelanggan as pelangganId',
+                'u.nama_kendaraan as kendaraan',
+                'u.tanggal_ambil as tanggal_ambil',
+                'u.tanggal_kembali as tanggal_kembali',
+                'u.sopir as sopirId',
+                'u.status as status',
+                'u.waktu_ambil as waktu_ambil',
+                'b.nama as nama_pelanggan', 
+            )
+            ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+            ->where('u.sopir', $sopir)
+            ->get();
        
-        return view('dashboard.jadwal',compact('jadwal','data'));
+        return view('dashboard.jadwal',compact('response','jadwal'));
     }
     
     
@@ -117,5 +127,16 @@ public function report(Request $request)
 }
 
 
+public function selesai(Request $request, $id){
+    $selesai =  DB::table('pemesanans')
+                ->where('id_pemesanan', $id)
+                ->update([
+                    'status' => 3
+                ]);
+
+    alert()->success('Berhasil','Data Berhasil diselesaikan');
+    return redirect()->route('jadwal')->with('success','Data Berhasil Diselesaikan');
+
+}
 
 }

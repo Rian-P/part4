@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth','ceklevel:Super Admin,Admin,Sopir']], func
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
     Route::post('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
+    Route::get('/selesai/{id_pemesanan}', [JadwalController::class, 'selesai']);
 });
 
 

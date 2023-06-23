@@ -4,6 +4,20 @@
 
  <div class="main-panel">
           <div class="content-wrapper">
+          @if (Auth::check() && Auth::user()->level == 'Sopir')
+          <div class="row">
+            @foreach($schedule as $data)
+            <div class="col-md">
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>INFORMASI !</strong> Anda Mempunyai Jadwal Menyupir Pada Tanggal {{\Carbon\Carbon::parse($data->tanggal_ambil)->format('d F Y')}} Jam {{$data->waktu_ambil}} Dengan Pemesan Atas Nama <strong>{{$data->nama_pelanggan}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+             @endforeach
+          </div>
+          @else
+          @endif
+
             <div class="row">
               <div class="col-md-12 grid-margin">
                 <div class="row">

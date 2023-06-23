@@ -116,7 +116,7 @@
                                                                 <select class="form-select" name="sopir"
                                                                     aria-label="Default select example" required>
                                                                     @foreach($supir as $s)
-                                                                    <option value="{{$s->nama}}">{{$s->nama}}
+                                                                    <option value="{{$s->id}}">{{$s->nama}}
                                                                     </option>
                                                                     @endforeach
                                                                 </select>
