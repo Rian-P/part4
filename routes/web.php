@@ -11,6 +11,9 @@ use App\Http\Controllers\Dashboard\KendaraanController;
 use App\Http\Controllers\Dashboard\PemesananController;
 use App\http\Controllers\Dashboard\JadwalController;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Pemesanan;
+
+
 
 
 use App\Http\Controllers\ForgotPasswordController;
@@ -32,6 +35,15 @@ Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 Route::get('/daftar-kendaraan/search', [MobilController::class, 'search'])->name('mobil.search');
 
 Route::post('/booking', [MobilController::class, 'store']);
+Route::get('/coba', [DetailMobilController::class, 'coba'])->name('detail-mobil');
+
+//datapicker
+Route::get('/get-disabled-dates', function () {
+    $datesForDisable = Pemesanan::pluck('tanggal_ambil')->toArray();
+    
+    return response()->json(['dates' => $datesForDisable]);
+  
+});
 
 Route::pattern('id', '[0-9]+');
 Route::get('/{id}', [HomeController::class, 'show']);

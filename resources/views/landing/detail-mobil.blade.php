@@ -10,7 +10,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prapatan Jaya Trans</title>
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 </head>
 
@@ -19,7 +22,7 @@
     {{-- penyewaan detail-mobil  --}}
     <section>
 
-        <div class=" px-5 py-24 mx-auto  lg:w-4/6 mx-auto">
+        <div id="{{$detail_kendaraan->nama_kendaraan}}" class=" px-5 py-24 mx-auto  lg:w-4/6 mx-auto">
             <div>
                 <img src="{{ asset('storage/image/kendaraan/' . $detail_kendaraan->image) }}" alt=" random imgee"
                     class="w-full object-cover object-center rounded-lg shadow-md">
@@ -45,7 +48,6 @@
                         </div>
                         <div class="mt-4">
                             <span class="text-gray-600 text-sm"> {!! $detail_kendaraan->deskripsi !!}</span>
-
                         </div>
                     </div>
                 </div>
@@ -65,7 +67,7 @@
                             My account
                         </h6>
                         @else
-                        <h6 class="text-blueGray-700 text-xl font-bold">
+                        <h6 id="{{$detail_kendaraan->id_mobil}}" class="text-blueGray-700 text-xl font-bold">
                             Information
                         </h6>
                         @endif
@@ -135,7 +137,8 @@
                         </div>
                         <hr class="mt-6 border-b-1 border-blueGray-300">
 
-                        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        <h6 id="{{$detail_kendaraan->id_mobil}}"
+                            class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                             Information
                         </h6>
                         @else
@@ -152,16 +155,22 @@
                                         placeholder="Harga Sewa" readonly required>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-1/2 px-4">
+
+                           
+                            <input type="text" class="datepicker" placeholder="Select Date">
+                            
+                            <!-- <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_ambil"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Tanggal
                                         Ambil</label>
                                     <input type="date" id="tanggal_ambil" name="tanggal_ambil"
-                                        min="<?= date('Y-m-d') ?>" class=" border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" id="exampleFormControlInput1"
-                                        placeholder="Tanggal Ambil" required>
+                                        min="<?= date('Y-m-d') ?>"
+                                        class=" border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        id="exampleFormControlInput1" placeholder="Tanggal Ambil" required>
                                 </div>
-                            </div>
+                                 
+                            </div> -->
                             <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_kembali"
@@ -237,7 +246,7 @@
                             <i class="fa-solid fa-floppy-disk mr-2"></i> Booking
                         </a>
                         @endif
-                        
+
                     </form>
                 </div>
             </div>
@@ -261,6 +270,34 @@
 
         reader.readAsDataURL(file);
     });
+    </script>
+ 
+ <script>
+        $(document).ready(function() {
+            // Mengambil data dari database menggunakan AJAX
+            $.ajax({
+                url: "/get-disabled-dates", // Ubah URL sesuai dengan rute yang digunakan untuk mendapatkan data dari database
+                method: "GET",
+                success: function(response) {
+                    var datesForDisable = response.dates;
+                    $('.datepicker').datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        autoclose: true,
+                        beforeShowDay: function(date) {
+                            var year = date.getFullYear();
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var day = ("0" + date.getDate()).slice(-2);
+                            var formattedDate = year + "-" + month + "-" + day;
+                            var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
+                            return [!isDisabled];
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
     </script>
 
     <script>

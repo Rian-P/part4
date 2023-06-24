@@ -30,9 +30,11 @@ class JadwalController extends Controller
 
     public function index()
     {
-        $jadwal =  DB::table('pemesanans')
-        ->where('status', '=', 2)
+        $jadwal = DB::table('pemesanans')
+        ->join('users', 'users.id', '=', 'pemesanans.nama_pelanggan')
+        ->where('pemesanans.status', '=', 2)
         ->get();
+
 
         $sopir = Auth::user()->id;
 

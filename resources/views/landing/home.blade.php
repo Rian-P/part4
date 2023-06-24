@@ -18,9 +18,8 @@
 </head>
 
 <body class="#">
-    {{-- menampilkan slide  --}}
+    <!-- {{-- menampilkan slide  --}} -->
     <section>
-
         <div id="default-carousel" class="relative" data-carousel="slide" class="h-auto max-w-full ">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
@@ -102,10 +101,7 @@
                             d="M18.71 7.20998C18.617 7.11625 18.5064 7.04186 18.3846 6.99109C18.2627 6.94032 18.132 6.91418 18 6.91418C17.868 6.91418 17.7373 6.94032 17.6154 6.99109C17.4936 7.04186 17.383 7.11625 17.29 7.20998L9.84001 14.67L6.71001 11.53C6.61349 11.4367 6.49955 11.3634 6.37469 11.3142C6.24984 11.265 6.11651 11.2409 5.98233 11.2432C5.84815 11.2455 5.71574 11.2743 5.59266 11.3278C5.46959 11.3812 5.35825 11.4585 5.26501 11.555C5.17177 11.6515 5.09846 11.7654 5.04925 11.8903C5.00005 12.0152 4.97592 12.1485 4.97824 12.2827C4.98056 12.4168 5.00929 12.5493 5.06278 12.6723C5.11628 12.7954 5.19349 12.9067 5.29001 13L9.13001 16.84C9.22297 16.9337 9.33358 17.0081 9.45543 17.0589C9.57729 17.1096 9.708 17.1358 9.84001 17.1358C9.97202 17.1358 10.1027 17.1096 10.2246 17.0589C10.3464 17.0081 10.457 16.9337 10.55 16.84L18.71 8.67998C18.8115 8.58634 18.8925 8.47269 18.9479 8.34619C19.0033 8.21969 19.0319 8.08308 19.0319 7.94498C19.0319 7.80688 19.0033 7.67028 18.9479 7.54378C18.8925 7.41728 18.8115 7.30363 18.71 7.20998V7.20998Z"
                             fill="#198754" />
                     </svg>
-
-
                     PT PRAPATAN JAYA TRANS
-
                 </p>
                 <p class="text-black-900 text-[25px] font-bold ">Pusat Sewa Mobil Terbesar di Tegal dengan Armada
                     terlengkap kami siap memenuhi kebutuhan transportasi
@@ -113,7 +109,6 @@
                 <p class="text-gray-700 text-base mb-8">anda dengan pelayanan terbaik dan Profesional</p>
 
                 <form class="flex items-center" action="{{route('home.search') }}" method="GET">
-
                     <div class="relative ">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none ">
                             <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
@@ -126,7 +121,6 @@
                         <input type="text" id="simple-search"
                             class="bg-background border border-white-300 text-black-900 text-sm rounded-lg focus:ring-black-500  w-full pl-16 pr-10 py-2.5 "
                             type="text" name="search" placeholder="Cari mobil..." required>
-
                     </div>
                     <button type="submit"
                         class="p-2.5 ml-2 text-sm font-medium text-white bg-red-700 rounded-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 ">cari
@@ -135,7 +129,6 @@
                         <span class="sr-only"></span>
                     </button>
                 </form>
-
             </div>
             <div class="lg:max-w-lg lg:w-full pl-5  w-6/6">
                 <img class="lg:w-full" src="{{url('images/background/alphard colors black.png')}}"
@@ -195,7 +188,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -208,7 +200,7 @@
 
             <div class="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4">
                 @foreach ($kendaraan as $row)
-                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg  px-4 py-4 mx-4 my-4">
                     <a href="/{{ $row->id_mobil }}">
                         <img class="w-full" src="{{ asset('storage/image/kendaraan/' . $row->image) }}">
                     </a>
@@ -231,6 +223,14 @@
                         <span
                             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                             {{ $row->tipe }}</span>
+                        <a href="/{{ $row->id_mobil }}#{{ $row->nama_kendaraan }}"> <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                view detail
+                            </button></a>
+                        <a href="/{{ $row->id_mobil }}#{{ $row->id_mobil }}"> <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                Boking
+                            </button></a>
                     </div>
                 </div>
                 @endforeach
