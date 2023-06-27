@@ -170,29 +170,5 @@
     });
     </script>
 
-    <!-- Kode JavaScript -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-    $(document).ready(function() {
-        $('.hapus-users').click(function(e) {
-            e.preventDefault();
-            var nama = $(this).data('nama');
-
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: "Apakah Anda yakin ingin menghapus kendaraan '" + nama + "'?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#hapusForm').submit();
-                }
-            });
-        });
-    });
-    </script> -->
+    
     @endsection

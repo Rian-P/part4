@@ -65,7 +65,7 @@
 <body>
 	<div class="header">
 		<h1 style="text-align: center;">Kwintansi</h1>
-		<img src="{{url('images/icon/iconbg.png')}}" alt="Logo" class="h-8 w-8 mr-2">
+		<img src="{{ $logo}}" alt="Logo" class="h-8 w-8 mr-2">
 	</div>
 	<div class="invoice-details">
 		<h4>Customer Name: {{$latter->nama_pelanggan}}</h4>

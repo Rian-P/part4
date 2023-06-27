@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pemesanan;
+use DB;
 
 class TransaksiController extends Controller
 {
@@ -13,12 +14,25 @@ class TransaksiController extends Controller
     public function index()
     {
         $nama = Auth::user()->id;
-        $data = Pemesanan::where('nama_pelanggan', $nama)->get();
-        return view('landing.transaksi',compact('data'));
+        // $data = Pemesanan::where('nama_pelanggan', $nama)->get();
 
-        // $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
-        // $data = Pemesanan::where('user_id', $userId)->get(); 
-        // return view('landing.transaksi',compact('data'));
+
+        $data = DB::table('pemesanans as u')->select(
+            'u.id_pemesanan as id_pemesanan',
+            'u.nama_pelanggan as pelangganId',
+            'b.nama as nama_pelanggan', 
+            'u.nama_kendaraan as nama_kendaraan',
+            'u.tanggal_ambil as tanggal_ambil',
+            'u.tanggal_kembali as tanggal_kembali',
+            'u.bukti_tf as bukti_tf',
+            'u.total_harga as total_harga',
+            'u.status as status',
+            'u.waktu_ambil as waktu_ambil',
+        )
+        ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+        ->where('b.id', $nama)
+        ->get();
+        return view('landing.transaksi',compact('data'));
     }
 
     public function update(Request $request, $id)

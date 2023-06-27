@@ -14,7 +14,24 @@ class PemesananController extends Controller
 {
     public function index()
     {
-        $pemesanan = Pemesanan::all();
+        $pemesanan = DB::table('pemesanans as u')->select(
+            'u.id_pemesanan as id_pemesanan',
+            'u.nama_pelanggan as pelangganId',
+            'b.nama as nama_pelanggan',  
+            'u.nama_kendaraan as nama_kendaraan',
+            'u.tanggal_ambil as tanggal_ambil',
+            'u.tanggal_kembali as tanggal_kembali',
+            'u.bukti_tf as bukti_tf',
+            'u.foto_ktp as foto_ktp',
+            'u.total_harga as total_harga',
+            'u.status as status',
+            'u.sopir as sopir',
+            'u.tujuan as tujuan',
+            'u.waktu_ambil as waktu_ambil',
+        )
+        ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+        ->get();
+        
         $supir = User::where('level', 'Sopir')->get();
         return view('dashboard.pemesanan',compact('pemesanan','supir'));
     }

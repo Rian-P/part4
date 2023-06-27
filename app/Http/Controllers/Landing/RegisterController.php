@@ -13,8 +13,6 @@ class RegisterController extends Controller
     {
         return view('landing.register');
     }
-
-    
     public function store(Request $request)
     {
         $existingUser = User::where('email', $request->input('email'))->first();
@@ -55,10 +53,6 @@ class RegisterController extends Controller
             }
             $user->save();
             return redirect()->route('login.index')->with('success', 'Data berhasil ditambahkan');
+    }  
     }
-    
-        
-    }
-    
-   
 }

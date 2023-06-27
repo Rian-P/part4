@@ -38,13 +38,27 @@ Route::post('/booking', [MobilController::class, 'store']);
 Route::get('/coba', [DetailMobilController::class, 'coba'])->name('detail-mobil');
 
 //datapicker
-Route::get('/get-disabled-dates', function () {
-    $datesForDisable = Pemesanan::pluck('tanggal_ambil')->toArray();
+// Route::get('/get-disabled-dates', function () {
+//     $datesForDisable = Pemesanan::where('nama_kendaraan', 'Avanza 4A')->pluck('tanggal_ambil')->toArray();
     
-    return response()->json(['dates' => $datesForDisable]);
+//     return response()->json(['dates' => $datesForDisable]);
   
-});
+// });
 
+Route::get('/get-disabled-dates/{nama_kendaraan}', function ($namaKendaraan) {
+    $datesForDisable = Pemesanan::where('nama_kendaraan', $namaKendaraan)
+        ->pluck('tanggal_ambil')
+        ->toArray();
+        
+    return response()->json(['dates' => $datesForDisable]);
+});
+Route::get('/get-disabled-dates1/{nama_kendaraan}', function ($namaKendaraan) {
+    $datesForDisable = Pemesanan::where('nama_kendaraan', $namaKendaraan)
+        ->pluck('tanggal_kembali')
+        ->toArray();
+        
+    return response()->json(['dates' => $datesForDisable]);
+});
 Route::pattern('id', '[0-9]+');
 Route::get('/{id}', [HomeController::class, 'show']);
 
@@ -79,7 +93,7 @@ Route::group(['middleware' => ['auth','ceklevel:Super Admin,Admin']], function()
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
     Route::put('/approve/{id_pemesanan}', [PemesananController::class, 'approve'])->name('upprove');
     Route::put('/edit-sopir/{id}', [PemesananController::class, 'updateSopir']);
-    Route::put('/hapus-pemesanan/{id}', [PemesananController::class, 'hapus']);
+    Route::get('/hapus-pemesanan/{id}', [PemesananController::class, 'hapus']);
    
 
     

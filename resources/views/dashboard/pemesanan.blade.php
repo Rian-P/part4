@@ -90,7 +90,9 @@
                                                     </button>
                                                 </form>
                                                 @else
-                                                <a class="btn btn-danger hapusUser" data-nama="{{$pemesanan->nama_pelanggan}}" data-id="{{$pemesanan->id_pemesanan}}"><i
+                                                <a class="btn btn-danger hapusPemesanan" data-nama="{{$pemesanan->nama_pelanggan}}" data-id="{{$pemesanan->id_pemesanan}}"><i
+                                                        class="fa-solid fa-trash-can"></i></a>
+                                                <a href="/hapus-pemesanan/{{$pemesanan->id_pemesanan}}" class="btn btn-danger hapusPemesanan"><i
                                                         class="fa-solid fa-trash-can"></i></a>
                                                 @endif
                                             </td>
@@ -172,6 +174,32 @@
                                         </div>
 
 
+                                        <script>
+                                        $('.hapusPemesanan').click(function() {
+                                            var usersid = $(this).attr('data-id');
+                                            var namapemesan = $(this).attr('data-nama');
+                                            swal({
+                                                    title: "Apa kamu yakin ?",
+                                                    text: "Kamu akan hapus user atas nama " +
+                                                        namapemesan +
+                                                        " ",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true,
+                                                })
+                                                .then((willHapus) => {
+                                                    if (willHapus) {
+                                                        window.location = "/hapus-pemesanan/" +
+                                                            usersid + ""
+                                                        swal("Data berhasil dihapus", {
+                                                            icon: "success",
+                                                        });
+                                                    } else {
+                                                        swal("Data batal diupprove");
+                                                    }
+                                                });
+                                        });
+                                        </script>
 
 
                                         <!-- Kode JavaScript -->
@@ -201,33 +229,7 @@
                                         });
                                         </script>
 
-                                        <script>
-                                        $('.hapusUser').click(function() {
-                                            var usersid = $(this).attr('data-id');
-                                            var nama = $(this).attr('data-nama');
-                                            swal({
-                                                    title: "Apa kamu yakin ?",
-                                                    text: "Kamu akan hapus user atas nama " +
-                                                        nama +
-                                                        " ",
-                                                    icon: "warning",
-                                                    buttons: true,
-                                                    dangerMode: true,
-                                                })
-                                                .then((willHapus) => {
-                                                    if (willHapus) {
-                                                        window.location = "/hapus-pemesanan/" +
-                                                            usersid + ""
-                                                        swal("Data berhasil dihapus", {
-                                                            icon: "success",
-                                                        });
-                                                    } else {
-                                                        swal("Data batal diupprove");
-                                                    }
-                                                });
-                                        });
-                                        </script>
-
+                                       
                                         @endforeach
                                     </tbody>
                                 </table>

@@ -6,7 +6,6 @@
     <div class="text-xl">
         <p>Transaksi</p>
     </div>
-
     </div>
     @if (count($data) > 0)
     <div class="overflow-x-auto">
@@ -37,7 +36,6 @@
                     <th scope="col" class="px-6 py-3">
                         Invoice
                     </th>
-
                 </tr>
             </thead>
             <tbody>
@@ -72,7 +70,6 @@
                             View Bukti Transfer
                         </button>
                         @endif
-
                     </td>
                     <td class="px-6 py-4">
                         Rp. {{ $data->total_harga }}
@@ -105,20 +102,15 @@
 </section>
 
 
-
-
-
 <!-- Main modal -->
 
-
-
-
+@include('landing.modalKTP')
+@include('landing.modalViewKTP')
 @else
 <p>Belum ada pemesanan yang ditambahkan.</p>
 @endif
 
-
-<script>
+<!-- <script>
 document.getElementById('bukti_tf').addEventListener('change', function(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -135,5 +127,5 @@ document.getElementById('bukti_tf').addEventListener('change', function(event) {
 
     reader.readAsDataURL(file);
 });
-</script>
+</script> -->
 @endsection

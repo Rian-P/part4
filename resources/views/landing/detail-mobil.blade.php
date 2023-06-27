@@ -156,27 +156,26 @@
                                 </div>
                             </div>
 
-                           
-                            <input type="text" class="datepicker" placeholder="Select Date">
+                         
                             
-                            <!-- <div class="w-full lg:w-1/2 px-4">
+                            <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_ambil"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Tanggal
                                         Ambil</label>
-                                    <input type="date" id="tanggal_ambil" name="tanggal_ambil"
+                                    <input  type="text" id="tanggal_ambil" name="tanggal_ambil"
                                         min="<?= date('Y-m-d') ?>"
                                         class=" border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         id="exampleFormControlInput1" placeholder="Tanggal Ambil" required>
                                 </div>
                                  
-                            </div> -->
+                            </div>
                             <div class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_kembali"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                                         Pengembalian</label>
-                                    <input type="date" id="tanggal_kembali" name="tanggal_kembali"
+                                    <input type="text" id="tanggal_kembali" name="tanggal_kembali"
                                         min="<?= date('Y-m-d') ?>"
                                         class="border-0 px-3 py-3  text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
                                         placeholder="Tanggal Kembali" onchange="hitungTotalHarga()" required>
@@ -253,6 +252,8 @@
 
         </div>
     </section>
+
+    
     <script>
     document.getElementById('foto_ktp').addEventListener('change', function(event) {
         var file = event.target.files[0];
@@ -272,11 +273,11 @@
     });
     </script>
  
- <script>
+ <!-- <script>
         $(document).ready(function() {
             // Mengambil data dari database menggunakan AJAX
             $.ajax({
-                url: "/get-disabled-dates", // Ubah URL sesuai dengan rute yang digunakan untuk mendapatkan data dari database
+                url: "/get-disabled-dates/{{$detail_kendaraan->nama_kendaraan}}", // Ubah URL sesuai dengan rute yang digunakan untuk mendapatkan data dari database
                 method: "GET",
                 success: function(response) {
                     var datesForDisable = response.dates;
@@ -298,8 +299,63 @@
                 }
             });
         });
-    </script>
+</script> -->
+<script>
+    $(document).ready(function() {
+  $.ajax({
+    url: "/get-disabled-dates/{{$detail_kendaraan->nama_kendaraan}}",
+    method: "GET",
+    success: function(response) {
+      var datesForDisable = response.dates;
+      $('#tanggal_ambil').datepicker({
+        dateFormat: 'yy-mm-dd',
+        autoclose: true,
+        beforeShowDay: function(date) {
+          var selectedDate = $('#tanggal_ambil').val(); // Get the selected date from the input field
+          var year = date.getFullYear();
+          var month = ("0" + (date.getMonth() + 1)).slice(-2);
+          var day = ("0" + date.getDate()).slice(-2);
+          var formattedDate = year + "-" + month + "-" + day;
+          var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
+          return [!isDisabled];
+        }
+      });
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+});
 
+</script>
+<script>
+    $(document).ready(function() {
+  $.ajax({
+    url: "/get-disabled-dates1/{{$detail_kendaraan->nama_kendaraan}}",
+    method: "GET",
+    success: function(response) {
+      var datesForDisable = response.dates;
+      $('#tanggal_kembali').datepicker({
+        dateFormat: 'yy-mm-dd',
+        autoclose: true,
+        beforeShowDay: function(date) {
+          var selectedDate = $('#tanggal_kembali').val(); // Get the selected date from the input field
+          var year = date.getFullYear();
+          var month = ("0" + (date.getMonth() + 1)).slice(-2);
+          var day = ("0" + date.getDate()).slice(-2);
+          var formattedDate = year + "-" + month + "-" + day;
+          var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
+          return [!isDisabled];
+        }
+      });
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+});
+
+</script>
     <script>
     function hitungTotalHarga() {
         const hargaSewa = document.getElementById('harga_sewa').value;

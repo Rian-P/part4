@@ -15,7 +15,6 @@
     }
     </style>
 </head>
-
 <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
     <header class="max-w-lg mx-auto">
         <a href="#">
@@ -23,16 +22,13 @@
             <h1 class="text-4xl font-bold text-white text-center ">Login</h1>
         </a>
     </header>
-
     <main class="max-w-lg mx-auto p-8 md:p-12 ">
         @if(Session::has('error'))
         <div class="alert alert-danger">
             {{ Session::get('error') }}
         </div>
         @endif
-
         @include('sweetalert::alert')
-
         <section class="mt-0">
             <form class="flex flex-col" method="post" action="{{ route('login.store') }}">
                 @csrf

@@ -11,6 +11,10 @@ use FPDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
 
 class JadwalController extends Controller
 {
@@ -30,9 +34,29 @@ class JadwalController extends Controller
 
     public function index()
     {
-        $jadwal = DB::table('pemesanans')
-        ->join('users', 'users.id', '=', 'pemesanans.nama_pelanggan')
-        ->where('pemesanans.status', '=', 2)
+        // $jadwal = DB::table('pemesanans')
+        // ->join('users', 'users.id', '=', 'pemesanans.nama_pelanggan')
+        // ->where('pemesanans.status', '=', 2)
+        // ->get();
+
+        $jadwal = DB::table('pemesanans as u')->select(
+            'u.id_pemesanan as id_pemesanan',
+            'u.nama_pelanggan as pelangganId',
+            'b.nama as nama_pelanggan',  
+            'u.nama_kendaraan as nama_kendaraan',
+            'u.tanggal_ambil as tanggal_ambil',
+            'u.tanggal_kembali as tanggal_kembali',
+            'u.bukti_tf as bukti_tf',
+            'u.foto_ktp as foto_ktp',
+            'u.total_harga as total_harga',
+            'u.status as status',
+            'u.sopir as sopir',
+            'u.tujuan as tujuan',
+            'u.waktu_ambil as waktu_ambil',
+            'u.waktu_kembali as waktu_kembali',
+        )
+        ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+        ->where('u.status', '=', 2)
         ->get();
 
 
@@ -56,19 +80,48 @@ class JadwalController extends Controller
         return view('dashboard.jadwal',compact('response','jadwal'));
     }
     
-    
+//     public function kwitansi($id)
+// { 
+//     ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
 
-    public function kwitansi($id)
-    { 
-        $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
-        $ambil = Carbon::parse($kwitansi->tanggal_ambil);
-        $kembali = Carbon::parse($kwitansi->tanggal_kembali);
-        $selisih = $ambil->diffInDays($kembali);
-        $kwitansi->selisih_hari = $selisih;
-    
-        $pdf = PDF::loadView('dashboard.kwitansi', ['latter' => $kwitansi]);
-        return $pdf->stream('Kwitansi');
-    }
+//     $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
+//     $ambil = Carbon::parse($kwitansi->tanggal_ambil);
+//     $kembali = Carbon::parse($kwitansi->tanggal_kembali);
+//     $selisih = $ambil->diffInDays($kembali);
+//     $kwitansi->selisih_hari = $selisih;
+ 
+//     $pdf = PDF::loadView('dashboard.kwitansi', ['latter' => $kwitansi]);
+//     return $pdf->stream('Kwitansi');
+// }
+public function kwitansi($id)
+{
+    ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
+
+    $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
+    $ambil = Carbon::parse($kwitansi->tanggal_ambil);
+    $kembali = Carbon::parse($kwitansi->tanggal_kembali);
+    $selisih = $ambil->diffInDays($kembali);
+    $kwitansi->selisih_hari = $selisih;
+
+    // Mengambil gambar dari storage
+$logoPath = public_path('images/icon/iconbg.png');
+$logo = Image::make($logoPath)->encode('data-url')->encoded;
+
+    // Render view ke dalam string
+    $html = View::make('dashboard.kwitansi',['latter' => $kwitansi], compact( 'logo'))->render();
+
+    // Membuat instance Dompdf
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+
+    // Render HTML ke PDF
+    $dompdf->render();
+
+    // Output PDF ke browser atau simpan ke file
+    return $dompdf->stream('kwitansi.pdf');
+}
+
+
 
 
 public function calculateTotalPrice(Request $request)
@@ -83,6 +136,7 @@ public function calculateTotalPrice(Request $request)
     $pemasukan = DB::table('pemesanans')
         ->where('status', '=', 2)
         ->get();
+    
 
     $report = Pemesanan::where('status', '=', 2)
         ->whereBetween('tanggal_ambil', [$startDate, $endDate])
@@ -97,9 +151,6 @@ public function calculateTotalPrice(Request $request)
 
     return view('dashboard.pemasukan', compact('formattedTotal','formattedPrice','pemasukan','report'));
 }
-
-
-
 
 public function report(Request $request)
 {
@@ -127,7 +178,6 @@ public function report(Request $request)
 
     return $pdf->Output('Report.pdf', 'D');
 }
-
 
 public function selesai(Request $request, $id){
     $selesai =  DB::table('pemesanans')

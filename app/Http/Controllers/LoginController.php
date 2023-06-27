@@ -11,9 +11,6 @@ class LoginController extends Controller
     public function index(){
         return view('landing.login');
     }
-
-    
-
     public function login(Request $request)
 {
     $request->validate([
@@ -48,8 +45,6 @@ class LoginController extends Controller
         return redirect('/login');
     }
 }
-
-
 
      public function logout(Request $request){
         Auth::logout();

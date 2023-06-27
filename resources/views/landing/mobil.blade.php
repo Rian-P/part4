@@ -3,7 +3,6 @@
 @section('content')
 <!doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="56x56" href="images/icon/iconbg.png" />
 </head>
 
-<body class="">
+<body >
     <section class="font-inter">
         <div class="container px-24 pt-16 pb-6 mx-auto">
             <div class=" md:flex flex-wrap  ">
@@ -45,11 +44,9 @@
                         <button type="submit"
                             class="md:flex flex-wrap p-2.5 ml-2 text-sm font-medium text-white bg-red-700 rounded-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 ">cari
                             mobil
-
                             <span class="sr-only"></span>
                         </button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -116,12 +113,9 @@
                 </div>
                 @endforeach
             </div>
-
         </div>
         </div>
     </section>
-
 </body>
-
 </html>
 @endsection
