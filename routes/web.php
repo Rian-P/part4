@@ -35,15 +35,6 @@ Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 Route::get('/daftar-kendaraan/search', [MobilController::class, 'search'])->name('mobil.search');
 
 Route::post('/booking', [MobilController::class, 'store']);
-Route::get('/coba', [DetailMobilController::class, 'coba'])->name('detail-mobil');
-
-//datapicker
-// Route::get('/get-disabled-dates', function () {
-//     $datesForDisable = Pemesanan::where('nama_kendaraan', 'Avanza 4A')->pluck('tanggal_ambil')->toArray();
-    
-//     return response()->json(['dates' => $datesForDisable]);
-  
-// });
 
 Route::get('/get-disabled-dates/{nama_kendaraan}', function ($namaKendaraan) {
     $datesForDisable = Pemesanan::where('nama_kendaraan', $namaKendaraan)

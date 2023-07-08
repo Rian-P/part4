@@ -8,6 +8,9 @@
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Upload Bukti Transfer
                 </h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    rekening BCA 3600287710
+                </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     x-data x-on:click="$dispatch('close-modal', 'defaultModal')">

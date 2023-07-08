@@ -15,16 +15,18 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
+use App\Mail\BookingNotificationEmail;
+use Illuminate\Support\Facades\Mail;
 
 class JadwalController extends Controller
 {
     public function pemasukan(){
-        $totalPrice = Pemesanan::where('status','=', 2)
+        $totalPrice = Pemesanan::where('status','=', 3)
                      ->sum('total_harga');
-        $formattedPrice = number_format($totalPrice, 2, ',', '.');
+        $formattedPrice = number_format($totalPrice, 3, ',', '.');
 
         $pemasukan = DB::table('pemesanans')
-        ->where('status', '=', 2)
+        ->where('status', '=', 3)
         ->get();
 
         return view('dashboard.pemasukan',compact('pemasukan','formattedPrice'));
@@ -34,15 +36,13 @@ class JadwalController extends Controller
 
     public function index()
     {
-        // $jadwal = DB::table('pemesanans')
-        // ->join('users', 'users.id', '=', 'pemesanans.nama_pelanggan')
-        // ->where('pemesanans.status', '=', 2)
-        // ->get();
+        
 
         $jadwal = DB::table('pemesanans as u')->select(
             'u.id_pemesanan as id_pemesanan',
             'u.nama_pelanggan as pelangganId',
             'b.nama as nama_pelanggan',  
+            'u.nama_pelanggan as nama_user',
             'u.nama_kendaraan as nama_kendaraan',
             'u.tanggal_ambil as tanggal_ambil',
             'u.tanggal_kembali as tanggal_kembali',
@@ -51,20 +51,22 @@ class JadwalController extends Controller
             'u.total_harga as total_harga',
             'u.status as status',
             'u.sopir as sopir',
+            'c.nama as nama_sopir',
             'u.tujuan as tujuan',
             'u.waktu_ambil as waktu_ambil',
             'u.waktu_kembali as waktu_kembali',
         )
         ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+        ->leftJoin('users as c', 'c.id', '=', 'u.sopir')  
         ->where('u.status', '=', 2)
         ->get();
-
 
         $sopir = Auth::user()->id;
 
             $response = DB::table('pemesanans as u')->select(
                 'u.id_pemesanan as pemesananId',
                 'u.nama_pelanggan as pelangganId',
+                'u.nama_pelanggan as nama_user',
                 'u.nama_kendaraan as kendaraan',
                 'u.tanggal_ambil as tanggal_ambil',
                 'u.tanggal_kembali as tanggal_kembali',
@@ -72,53 +74,78 @@ class JadwalController extends Controller
                 'u.status as status',
                 'u.waktu_ambil as waktu_ambil',
                 'b.nama as nama_pelanggan', 
+                'c.nama as nama_sopir',
+                
             )
             ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
-            ->where('u.sopir', $sopir)
+            ->leftJoin('users as c', 'c.id', '=', 'u.sopir')  
             ->get();
        
+
+            $notifiedBookings = [];
+
+            // Kirim email pengingat H-1 untuk pemesanan dengan status 2 dan sopir yang cocok
+            foreach ($jadwal as $booking) {
+                // Periksa apakah pemesanan sudah diingatkan sebelumnya dan cocok dengan sopir
+                if (!in_array($booking->id_pemesanan, $notifiedBookings) && $booking->sopir == $sopir) {
+                    // Hitung tanggal pengambilan dan tanggal pengingat (H-1)
+                    $tanggalPengambilan = Carbon::parse($booking->tanggal_ambil);
+                    $tanggalPengingat = $tanggalPengambilan->subDay();
+
+                    // Periksa apakah tanggal pengingat adalah hari ini
+                    if ($tanggalPengingat->isToday()) {
+                        // Kirim email pengingat
+                        $emailData = [
+                            'booking' => $booking,
+                            'tanggal_ambil' => $booking->tanggal_ambil,
+                            'nama_kendaraan' => $booking->nama_kendaraan
+                            // Tambahkan data lain yang ingin Anda kirimkan ke template email
+                        ];
+
+                        // Dapatkan alamat email sopir dari tabel 'users' berdasarkan ID sopir
+                        $driverEmail = DB::table('users')->where('id', $booking->sopir)->value('email');
+
+                        // Pastikan alamat email sopir tidak kosong
+                        if ($driverEmail) {
+                            Mail::to($driverEmail)->send(new BookingNotificationEmail($emailData));
+
+                            // Tambahkan ID pemesanan ke dalam array pemesanan yang sudah diingatkan
+                            $notifiedBookings[] = $booking->id_pemesanan;
+                        }
+                    }
+                }
+            }
+
         return view('dashboard.jadwal',compact('response','jadwal'));
     }
     
-//     public function kwitansi($id)
-// { 
-//     ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
 
-//     $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
-//     $ambil = Carbon::parse($kwitansi->tanggal_ambil);
-//     $kembali = Carbon::parse($kwitansi->tanggal_kembali);
-//     $selisih = $ambil->diffInDays($kembali);
-//     $kwitansi->selisih_hari = $selisih;
- 
-//     $pdf = PDF::loadView('dashboard.kwitansi', ['latter' => $kwitansi]);
-//     return $pdf->stream('Kwitansi');
-// }
 public function kwitansi($id)
 {
-    ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
+            ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
 
-    $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
-    $ambil = Carbon::parse($kwitansi->tanggal_ambil);
-    $kembali = Carbon::parse($kwitansi->tanggal_kembali);
-    $selisih = $ambil->diffInDays($kembali);
-    $kwitansi->selisih_hari = $selisih;
+            $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
+            $ambil = Carbon::parse($kwitansi->tanggal_ambil);
+            $kembali = Carbon::parse($kwitansi->tanggal_kembali);
+            $selisih = $ambil->diffInDays($kembali);
+            $kwitansi->selisih_hari = $selisih;
 
-    // Mengambil gambar dari storage
-$logoPath = public_path('images/icon/iconbg.png');
-$logo = Image::make($logoPath)->encode('data-url')->encoded;
+            // Mengambil gambar dari storage
+        $logoPath = public_path('images/icon/iconbg.png');
+        $logo = Image::make($logoPath)->encode('data-url')->encoded;
 
-    // Render view ke dalam string
-    $html = View::make('dashboard.kwitansi',['latter' => $kwitansi], compact( 'logo'))->render();
+            // Render view ke dalam string
+            $html = View::make('dashboard.kwitansi',['latter' => $kwitansi], compact( 'logo'))->render();
 
-    // Membuat instance Dompdf
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml($html);
+            // Membuat instance Dompdf
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
 
-    // Render HTML ke PDF
-    $dompdf->render();
+            // Render HTML ke PDF
+            $dompdf->render();
 
-    // Output PDF ke browser atau simpan ke file
-    return $dompdf->stream('kwitansi.pdf');
+            // Output PDF ke browser atau simpan ke file
+            return $dompdf->stream('kwitansi.pdf');
 }
 
 

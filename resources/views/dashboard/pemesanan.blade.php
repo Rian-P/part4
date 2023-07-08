@@ -35,10 +35,11 @@
                                     <tbody>
                                         @foreach($pemesanan as $pemesanan)
                                         <tr>
-                                            <td>{{$pemesanan->nama_pelanggan}}</td>
+                                        <td>{{$pemesanan->nama_pelanggan ?? $pemesanan->nama_user}}</td>
+
                                             <td class="font-weight-bold">{{$pemesanan->nama_kendaraan}}</td>
                                             <td>{{$pemesanan->tujuan}}</td>
-                                            <td>{{$pemesanan->sopir}}
+                                            <td>{{$pemesanan->nama_sopir ?? $pemesanan->sopir}}
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-primary btn-sm"
                                                     data-bs-toggle="modal"
@@ -52,7 +53,7 @@
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-secondary btn-sm"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{$pemesanan->id_pemesanan}}">
+                                                    data-bs-target="#exampleModal1{{$pemesanan->id_pemesanan}}">
                                                     <i class="fa-sharp fa-regular fa-address-card"></i>
                                                 </button>
                                             </td>
@@ -90,8 +91,8 @@
                                                     </button>
                                                 </form>
                                                 @else
-                                                <a class="btn btn-danger hapusPemesanan" data-nama="{{$pemesanan->nama_pelanggan}}" data-id="{{$pemesanan->id_pemesanan}}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
+                                                <!-- <a class="btn btn-danger hapusPemesanan" data-nama="{{$pemesanan->nama_pelanggan}}" data-id="{{$pemesanan->id_pemesanan}}"><i
+                                                        class="fa-solid fa-trash-can"></i></a> -->
                                                 <a href="/hapus-pemesanan/{{$pemesanan->id_pemesanan}}" class="btn btn-danger hapusPemesanan"><i
                                                         class="fa-solid fa-trash-can"></i></a>
                                                 @endif
@@ -134,7 +135,7 @@
 
 
                                         <!-- Modal KTP -->
-                                        <div class="modal fade" id="exampleModal{{$pemesanan->id_pemesanan}}"
+                                        <div class="modal fade" id="exampleModal1{{$pemesanan->id_pemesanan}}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">

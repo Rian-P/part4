@@ -195,12 +195,11 @@
 
     <!-- Card -->
 
-    <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
-
+    <!-- <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto" >
             <div class="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4">
                 @foreach ($kendaraan as $row)
-                <div class="max-w-sm rounded overflow-hidden shadow-lg  px-4 py-4 mx-4 my-4">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg  px-4 py-4 mx-4 my-4 ">
                     <a href="/{{ $row->id_mobil }}">
                         <img class="w-full" src="{{ asset('storage/image/kendaraan/' . $row->image) }}">
                     </a>
@@ -236,8 +235,46 @@
                 @endforeach
             </div>
         </div>
+        
+    </section> -->
+
+    <section class="text-gray-600 body-font">
+    <div class="container mx-auto py-24">
+        <div class="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4">
+            @foreach ($kendaraan as $row)
+            <div class="w-1/3  ">
+                <div class="max-w-sm rounded overflow-hidden shadow-lg px-4 py-4 mx-4 my-4 ">
+                    <a href="/{{ $row->id_mobil }}">
+                        <img class="w-full h-64 object-cover" src="{{ asset('storage/image/kendaraan/' . $row->image) }}">
+                    </a>
+                    <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2">{{ $row->nama_kendaraan }}</div>
+                        <p class="text-gray-700 text-base">
+                            {!! $row->deskripsi !!}
+                        </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2">
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Rp. {{ $row->harga_24_jam }} /24jam</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $row->tahun }}</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">kapasitas penumpang : {{ $row->max_penumpang }} orang</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{ $row->tipe }}</span>
+                        <a href="/{{ $row->id_mobil }}#{{ $row->nama_kendaraan }}">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                View Detail
+                            </button>
+                        </a>
+                        <a href="/{{ $row->id_mobil }}#{{ $row->id_mobil }}">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                Booking
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
 </body>
 

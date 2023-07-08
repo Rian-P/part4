@@ -26,7 +26,7 @@
                                     @foreach($response as $jadwal) 
                                     @if($jadwal->status == 2)                    
                                     <tr>
-                                        <td>{{$jadwal->nama_pelanggan}}</td>
+                                        <td>{{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}</td>
                                         <td>{{$jadwal->kendaraan}}</td>
                                         <td>{{$jadwal->tanggal_ambil}}</td>
                                         <td>{{$jadwal->tanggal_kembali}}</td>
@@ -37,7 +37,7 @@
                                     </tr>
                                     @elseif($jadwal->status == 3)
                                     <tr>
-                                        <td>{{$jadwal->nama_pelanggan}}</td>
+                                        <td>{{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}</td>
                                         <td>{{$jadwal->kendaraan}}</td>
                                         <td>{{$jadwal->tanggal_ambil}}</td>
                                         <td>{{$jadwal->tanggal_kembali}}</td>
@@ -74,11 +74,11 @@
                                     @foreach($jadwal as $jadwal)
                                     <tr>
                                         <td>
-                                            {{$jadwal->nama_pelanggan}}
+                                            {{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}
                                         </td>
                                         <td> {{$jadwal->nama_kendaraan}}</td>
-                                        <td class="font-weight-bold">{{$jadwal->sopir}}</td>
-                                        <td>{{$jadwal->tanggal_ambil}}</td>
+                                        <td>{{$jadwal->nama_sopir ?? $jadwal->sopir}}
+                                            <td>{{$jadwal->tanggal_ambil}}</td>
                                         <td>{{$jadwal->tanggal_kembali}}</td>
                                         <td>{{$jadwal->waktu_kembali}}</td>
                                         <td class="font-weight-medium">

@@ -14,10 +14,12 @@ class PemesananController extends Controller
 {
     public function index()
     {
+        
         $pemesanan = DB::table('pemesanans as u')->select(
             'u.id_pemesanan as id_pemesanan',
             'u.nama_pelanggan as pelangganId',
             'b.nama as nama_pelanggan',  
+            'u.nama_pelanggan as nama_user',
             'u.nama_kendaraan as nama_kendaraan',
             'u.tanggal_ambil as tanggal_ambil',
             'u.tanggal_kembali as tanggal_kembali',
@@ -26,10 +28,12 @@ class PemesananController extends Controller
             'u.total_harga as total_harga',
             'u.status as status',
             'u.sopir as sopir',
+            'c.nama as nama_sopir',
             'u.tujuan as tujuan',
             'u.waktu_ambil as waktu_ambil',
         )
         ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+        ->leftJoin('users as c', 'c.id', '=', 'u.sopir')  
         ->get();
         
         $supir = User::where('level', 'Sopir')->get();
@@ -105,9 +109,6 @@ public function hapus($id) {
         return redirect()->back()->with('error', 'Data tidak ditemukan');
     }
 }
-
-
-
 
 
 }

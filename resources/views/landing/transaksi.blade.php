@@ -110,22 +110,5 @@
 <p>Belum ada pemesanan yang ditambahkan.</p>
 @endif
 
-<!-- <script>
-document.getElementById('bukti_tf').addEventListener('change', function(event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
 
-    reader.onload = function(e) {
-        var previewContainer = document.getElementById('previewContainer');
-        previewContainer.innerHTML = '';
-
-        var image = document.createElement('img');
-        image.src = e.target.result;
-        image.classList.add('w-1/4', 'h-auto', 'mt-4');
-        previewContainer.appendChild(image);
-    }
-
-    reader.readAsDataURL(file);
-});
-</script> -->
 @endsection
