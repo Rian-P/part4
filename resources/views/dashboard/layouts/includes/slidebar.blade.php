@@ -55,7 +55,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/pemasukan">
             <i class="icon-grid-2 menu-icon"></i>
-            <span class="menu-title">Pemasukan</span>
+            <span class="menu-title">pendapatan</span>
           </a>
         </li>
         @endif
