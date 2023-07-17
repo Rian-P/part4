@@ -56,7 +56,7 @@ class MobilController extends Controller
             $file->storeAs('image/ktp/', $filename);
             $pemesanan->foto_ktp = $filename;
         }
-<<<<<<< HEAD
+
        
        
         
@@ -65,7 +65,6 @@ class MobilController extends Controller
     alert()->success('Tambah','Data Berhasil Ditambahkan');
     return redirect()->route('mobil.index')->with('success',' Data Berhasil Ditambahkan ');
 }
-=======
 
         // $tgl_sewa = $request->input('tanggal_ambil');
         // $tgl_kembali = $request->input('tanggal_kembali');
@@ -88,11 +87,11 @@ class MobilController extends Controller
         //     alert()->success('Tambah','JADWAL TIDAK TERSEDIA');
         //     return redirect()->route('transaksi.index')->with('Warning',' Jadwal Tidak Tersedia ');
         // }
->>>>>>> 33e87947b359f2a3fdb516df35c190a4d7ee810a
 
-        $pemesanan->save();
-        alert()->success('Tambah', 'Data Berhasil Ditambahkan');
 
-        return redirect()->route('mobil.index')->with('success', ' Data Berhasil Ditambahkan ');
-    }
+    //     $pemesanan->save();
+    //     alert()->success('Tambah', 'Data Berhasil Ditambahkan');
+
+    //     return redirect()->route('mobil.index')->with('success', ' Data Berhasil Ditambahkan ');
+    // }
 }

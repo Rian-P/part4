@@ -118,7 +118,7 @@ class JadwalController extends Controller
     {
         ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
 
-<<<<<<< HEAD
+
             $kwitansi = DB::table('pemesanans')
             ->select('pemesanans.*', 'users.nama', 'users.no_hp')
             ->leftJoin('users','pemesanans.sopir','=','users.id')
@@ -129,13 +129,9 @@ class JadwalController extends Controller
             $kembali = Carbon::parse($kwitansi->tanggal_kembali);
             $selisih = $ambil->diffInDays($kembali);
             $kwitansi->selisih_hari = $selisih;
-=======
-        $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
-        $ambil = Carbon::parse($kwitansi->tanggal_ambil);
-        $kembali = Carbon::parse($kwitansi->tanggal_kembali);
-        $selisih = $ambil->diffInDays($kembali);
-        $kwitansi->selisih_hari = $selisih;
->>>>>>> 33e87947b359f2a3fdb516df35c190a4d7ee810a
+
+        
+
 
         // Mengambil gambar dari storage
         $logoPath = public_path('images/icon/iconbg.png');
