@@ -91,8 +91,7 @@
                                                     </button>
                                                 </form>
                                                 @else
-                                                <!-- <a class="btn btn-danger hapusPemesanan" data-nama="{{$pemesanan->nama_pelanggan}}" data-id="{{$pemesanan->id_pemesanan}}"><i
-                                                        class="fa-solid fa-trash-can"></i></a> -->
+                                                
                                                 <a href="/hapus-pemesanan/{{$pemesanan->id_pemesanan}}" class="btn btn-danger hapusPemesanan"><i
                                                         class="fa-solid fa-trash-can"></i></a>
                                                 @endif

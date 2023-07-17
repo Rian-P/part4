@@ -42,7 +42,5 @@ class DashboardController extends Controller
         return view('dashboard.dashboard',$data,compact('schedule'));
     }
 
-    public function coba(){
-        return view('dashboard.coba');
-    }
+    
 }

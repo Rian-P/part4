@@ -83,7 +83,7 @@
 			<tbody>
 				<tr>
 					<td>{{$latter->nama_kendaraan}}</td>
-					<td>{{$latter->nama_sopir ?? $latter->sopir }}</td>
+					<td>{{$latter->nama}}</td>
 					<td>{{ $latter->selisih_hari }} Hari</td>
 					<td>{{$latter->no_hp}}</td>
 					<td>{{$latter->harga_sewa}} / 24 Jam</td>

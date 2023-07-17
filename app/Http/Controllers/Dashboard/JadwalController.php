@@ -124,7 +124,12 @@ public function kwitansi($id)
 {
             ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
 
-            $kwitansi = Pemesanan::where('id_pemesanan', $id)->first();
+            $kwitansi = DB::table('pemesanans')
+            ->select('pemesanans.*', 'users.nama', 'users.no_hp')
+            ->leftJoin('users','pemesanans.sopir','=','users.id')
+            ->where('pemesanans.id_pemesanan','=',$id)
+            ->where('users.level','=','sopir')
+            ->first();
             $ambil = Carbon::parse($kwitansi->tanggal_ambil);
             $kembali = Carbon::parse($kwitansi->tanggal_kembali);
             $selisih = $ambil->diffInDays($kembali);
