@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('no_kendaraan');
             $table->string('tahun');
-            $table->string('deskripsi',900);
+            $table->string('deskripsi', 900);
             $table->string('image');
             $table->string('max_penumpang');
             $table->string('harga_24_jam');

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +17,7 @@ class AdminSeeder extends Seeder
             'image' => 'None',
             'level' => 'Super Admin',
             'status' => 'Aktif',
-            'password' => bcrypt("superadmin"),
+            'password' => bcrypt('superadmin'),
             'no_hp' => '087733798090',
             'email' => 'superadmin@gmail.com',
         ]);
@@ -27,7 +26,7 @@ class AdminSeeder extends Seeder
             'image' => 'None',
             'level' => 'Admin',
             'status' => 'Aktif',
-            'password' => bcrypt("admin"),
+            'password' => bcrypt('admin'),
             'no_hp' => '087733',
             'email' => 'admin@gmail.com',
         ]);
@@ -36,7 +35,7 @@ class AdminSeeder extends Seeder
             'image' => 'None',
             'level' => 'User',
             'status' => 'Aktif',
-            'password' => bcrypt("rian"),
+            'password' => bcrypt('rian'),
             'no_hp' => '087733',
             'email' => 'rian@gmail.com',
         ]);

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 // use Illuminate\Support\Facades\DB;
 
@@ -14,10 +13,12 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard.users',compact('users'));
+
+        return view('dashboard.users', compact('users'));
     }
 
-    public function store(Request $request ){
+    public function store(Request $request)
+    {
         $users = new User();
         $users->nama = $request->input('nama');
         $users->email = $request->input('email');
@@ -25,35 +26,29 @@ class UsersController extends Controller
         $users->level = $request->input('level');
         $users->status = $request->input('status');
         $users->password = bcrypt($request->input('password'));
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extention = $file->getClientOriginalExtension();
             $filename = time().'.'.$extention;
-            $file->storeAs('image/users/',$filename);
+            $file->storeAs('image/users/', $filename);
             $users->image = $filename;
         }
-    $users->save();
-    alert()->success('Tambah','Data Berhasil Ditambahkan');
-    return redirect()->back()->with('status','Data Telah Ditambahkan');
+        $users->save();
+        alert()->success('Tambah', 'Data Berhasil Ditambahkan');
+
+        return redirect()->back()->with('status', 'Data Telah Ditambahkan');
     }
 
     public function hapus($id)
-{
-    $hapus = User::find($id);
-    
-    if ($hapus) {
-        $hapus->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    {
+        $hapus = User::find($id);
+
+        if ($hapus) {
+            $hapus->delete();
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        }
+
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
     }
-    
-    return redirect()->back()->with('error', 'Data tidak ditemukan');
 }
-
-
-
-    
-
-    
-    
-}
-
