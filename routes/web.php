@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Super Admin,Admin']], function 
     Route::get('/tambah-pemesanan', [PemesananController::class, 'insert']);
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
     Route::put('/approve/{id_pemesanan}', [PemesananController::class, 'approve'])->name('upprove');
+    Route::put('/batal/{id_pemesanan}', [PemesananController::class, 'batal'])->name('batalkan');
     Route::put('/edit-sopir/{id}', [PemesananController::class, 'updateSopir']);
     Route::get('/hapus-pemesanan/{id}', [PemesananController::class, 'hapus']);
 

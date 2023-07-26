@@ -66,32 +66,4 @@ class MobilController extends Controller
     return redirect()->route('mobil.index')->with('success',' Data Berhasil Ditambahkan ');
 }
 
-        // $tgl_sewa = $request->input('tanggal_ambil');
-        // $tgl_kembali = $request->input('tanggal_kembali');
-
-        // $cekJadwal = Pemesanan::where(function ($query) use($tgl_sewa, $tgl_kembali) {
-        //     $query->where('tanggal_ambil', '<=', $tgl_kembali)
-        //         ->where('tanggal_kembali', '>=', $tgl_sewa)
-        //         ->orWhere('tanggal_ambil', '<=', $tgl_kembali)
-        //         ->where('tanggal_kembali', '>=', $tgl_kembali)
-        //         ->where('status', 2)
-        //         ->where('nama_kendaraan', 2);
-        // })->get();
-
-        // if ($cekJadwal->isEmpty()) {
-        //     $pemesanan->save();
-        //     alert()->success('Tambah','Data Berhasil Ditambahkan');
-        //     return redirect()->route('mobil.index')->with('success',' Data Berhasil Ditambahkan ');
-        // }else {
-
-        //     alert()->success('Tambah','JADWAL TIDAK TERSEDIA');
-        //     return redirect()->route('transaksi.index')->with('Warning',' Jadwal Tidak Tersedia ');
-        // }
-
-
-    //     $pemesanan->save();
-    //     alert()->success('Tambah', 'Data Berhasil Ditambahkan');
-
-    //     return redirect()->route('mobil.index')->with('success', ' Data Berhasil Ditambahkan ');
-    // }
 }

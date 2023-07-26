@@ -3,6 +3,7 @@
 @section('content')
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="56x56" href="images/icon/iconbg.png" />
 </head>
 
-<body >
+<body>
     <section class="font-inter">
         <div class="container px-24 pt-16 pb-6 mx-auto">
             <div class=" md:flex flex-wrap  ">
@@ -74,48 +75,45 @@
         </div>
     </section>
 
-    <section class="text-gray-650 body-font">
-        <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4">
+    <section class="text-gray-600 body-font">
+        <div class="container mx-auto py-36">
+            <div class="flex flex-wrap justify-center">
                 @foreach ($kendaraan as $row)
-                <div class="max-w-sm mb-5 pb-8 rounded overflow-hidden shadow-lg px-4 py-4 mx-4 my-4">
-                    <a href="/{{ $row->id_mobil }}">
-                        <img class="w-full" src="{{ asset('storage/image/kendaraan/' . $row->image) }}">
-                    </a>
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2">{{ $row->nama_kendaraan }}</div>
-                        <p class="text-gray-700 text-base">
-                            {!! $row->deskripsi !!}
-                        </p>
-                    </div>
-                    <div class="px-6 pt-4 pb-2">
-                        <span
-                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Rp.
-                            {{ $row->harga_24_jam }} /24jam</span>
-                        <span
-                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                            {{ $row->tahun }}</span>
-                        <span
-                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                            kapasitas penumpang : {{ $row->max_penumpang }} orang</span>
-                        <span
-                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                            {{ $row->tipe }}</span>
-                        <a href="/{{ $row->id_mobil }}#{{ $row->nama_kendaraan }}"> <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                view detail
-                            </button></a>
-                        <a href="/{{ $row->id_mobil }}#{{ $row->id_mobil }}"> <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                Boking
-                            </button></a>
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-2 ">
+                    <div class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg ">
+                        <a href="/{{ $row->id_mobil }}">
+                            <img class="w-full h-64 object-cover"
+                                src="{{ asset('storage/image/kendaraan/' . $row->image) }}"
+                                alt="{{ $row->nama_kendaraan }}">
+                        </a>
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">{{ $row->nama_kendaraan }}</div>
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <p class="text-gray-700 text-sm mb-2">Rp. {{ $row->harga_24_jam }} / 24 jam</p>
+                            <p class="text-gray-700 text-sm mb-2">{{ $row->tahun }}</p>
+                            <p class="text-gray-700 text-sm mb-2">kapasitas penumpang: {{ $row->max_penumpang }} orang
+                            </p>
+                            <p class="text-gray-700 text-sm mb-2">{{ $row->tipe }}</p>
+                            <div class="flex justify-between mt-4">
+                                <a href="/{{ $row->id_mobil }}#{{ $row->nama_kendaraan }}"
+                                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                    View Detail
+                                </a>
+                                <a href="/{{ $row->id_mobil }}#{{ $row->id_mobil }}"
+                                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                    Booking
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endforeach
             </div>
         </div>
-        </div>
     </section>
+
 </body>
+
 </html>
 @endsection

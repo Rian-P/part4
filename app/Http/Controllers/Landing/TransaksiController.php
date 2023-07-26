@@ -13,7 +13,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $nama = Auth::user()->id;
-        // $data = Pemesanan::where('nama_pelanggan', $nama)->get();
+       
 
         $data = DB::table('pemesanans as u')->select(
             'u.id_pemesanan as id_pemesanan',

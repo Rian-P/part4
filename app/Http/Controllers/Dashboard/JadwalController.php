@@ -79,32 +79,32 @@ class JadwalController extends Controller
 
         $notifiedBookings = [];
 
-        // Kirim email pengingat H-1 untuk pemesanan dengan status 2 dan sopir yang cocok
+       
         foreach ($jadwal as $booking) {
-            // Periksa apakah pemesanan sudah diingatkan sebelumnya dan cocok dengan sopir
+           
             if (! in_array($booking->id_pemesanan, $notifiedBookings) && $booking->sopir == $sopir) {
-                // Hitung tanggal pengambilan dan tanggal pengingat (H-1)
+              
                 $tanggalPengambilan = Carbon::parse($booking->tanggal_ambil);
                 $tanggalPengingat = $tanggalPengambilan->subDay();
 
-                // Periksa apakah tanggal pengingat adalah hari ini
+             
                 if ($tanggalPengingat->isToday()) {
-                    // Kirim email pengingat
+                 
                     $emailData = [
                         'booking' => $booking,
                         'tanggal_ambil' => $booking->tanggal_ambil,
                         'nama_kendaraan' => $booking->nama_kendaraan,
-                        // Tambahkan data lain yang ingin Anda kirimkan ke template email
+                       
                     ];
 
-                    // Dapatkan alamat email sopir dari tabel 'users' berdasarkan ID sopir
+                  
                     $driverEmail = DB::table('users')->where('id', $booking->sopir)->value('email');
 
-                    // Pastikan alamat email sopir tidak kosong
+                   
                     if ($driverEmail) {
                         Mail::to($driverEmail)->send(new BookingNotificationEmail($emailData));
 
-                        // Tambahkan ID pemesanan ke dalam array pemesanan yang sudah diingatkan
+                       
                         $notifiedBookings[] = $booking->id_pemesanan;
                     }
                 }
@@ -116,7 +116,7 @@ class JadwalController extends Controller
 
     public function kwitansi($id)
     {
-        ini_set('max_execution_time', 120); // Menambahkan batas waktu eksekusi maksimum menjadi 120 detik
+        ini_set('max_execution_time', 120); 
 
 
             $kwitansi = DB::table('pemesanans')
@@ -133,21 +133,21 @@ class JadwalController extends Controller
         
 
 
-        // Mengambil gambar dari storage
+       
         $logoPath = public_path('images/icon/iconbg.png');
         $logo = Image::make($logoPath)->encode('data-url')->encoded;
 
-        // Render view ke dalam string
+       
         $html = View::make('dashboard.kwitansi', ['latter' => $kwitansi], compact('logo'))->render();
 
-        // Membuat instance Dompdf
+      
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
 
-        // Render HTML ke PDF
+       
         $dompdf->render();
 
-        // Output PDF ke browser atau simpan ke file
+        
         return $dompdf->stream('kwitansi.pdf');
     }
 
@@ -189,10 +189,10 @@ class JadwalController extends Controller
         $pdf = new FPDF();
         $pdf->AddPage();
 
-        // Set font and size
+        
         $pdf->SetFont('Arial', 'B', 16);
 
-        // Loop through the $report data and add it to the PDF
+       
         foreach ($report as $item) {
             $pdf->Cell(40, 10, $item->id);
             $pdf->Cell(40, 10, $item->tanggal_ambil);

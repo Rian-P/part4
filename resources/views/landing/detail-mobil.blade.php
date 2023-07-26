@@ -178,7 +178,7 @@
                                     <input type="text" id="tanggal_kembali" name="tanggal_kembali"
                                         min="<?= date('Y-m-d') ?>"
                                         class="border-0 px-3 py-3  text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
-                                        placeholder="Tanggal Kembali" onchange="hitungTotalHarga()" required>
+                                        id="exampleFormControlInput1"  placeholder="Tanggal Kembali" onchange="hitungTotalHarga()" required>
                                 </div>
                             </div>
                             @if (Auth::check())
@@ -273,33 +273,7 @@
     });
     </script>
  
- <!-- <script>
-        $(document).ready(function() {
-            // Mengambil data dari database menggunakan AJAX
-            $.ajax({
-                url: "/get-disabled-dates/{{$detail_kendaraan->nama_kendaraan}}", // Ubah URL sesuai dengan rute yang digunakan untuk mendapatkan data dari database
-                method: "GET",
-                success: function(response) {
-                    var datesForDisable = response.dates;
-                    $('.datepicker').datepicker({
-                        dateFormat: 'yy-mm-dd',
-                        autoclose: true,
-                        beforeShowDay: function(date) {
-                            var year = date.getFullYear();
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                            var day = ("0" + date.getDate()).slice(-2);
-                            var formattedDate = year + "-" + month + "-" + day;
-                            var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
-                            return [!isDisabled];
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-</script> -->
+ 
 <script>
     $(document).ready(function() {
   $.ajax({

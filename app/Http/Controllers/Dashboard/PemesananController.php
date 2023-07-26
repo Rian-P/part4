@@ -95,6 +95,18 @@ class PemesananController extends Controller
 
         return redirect()->route('order')->with('success', 'Data Berhasil Diuprove');
     }
+    public function batal(Request $request, $id)
+    {
+        $approve = DB::table('pemesanans')
+            ->where('id_pemesanan', $id)
+            ->update([
+                'status' => 4,
+            ]);
+
+        alert()->success('Berhasil', 'Data Berhasil dibatalkan');
+
+        return redirect()->route('order')->with('success', 'Data Berhasil Dibatalkan');
+    }
 
     public function updateSopir(Request $request, $id)
     {

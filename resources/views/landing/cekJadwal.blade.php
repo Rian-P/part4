@@ -18,7 +18,7 @@
 </head>
 
 <body class="#">
-   <h1>JADWAL TIDAK TERSEDIA</h1>
+    <h1>JADWAL TIDAK TERSEDIA</h1>
 
 </body>
 

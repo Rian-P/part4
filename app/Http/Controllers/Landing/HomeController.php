@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $keyword = $request->input('search');
 
-        // Query untuk pencarian mobil berdasarkan keyword
+      
         $kendaraan = Kendaraan::where('nama_kendaraan', 'LIKE', '%'.$keyword.'%')
             ->orWhere('tipe', 'LIKE', '%'.$keyword.'%')
             ->get();

@@ -35,7 +35,7 @@
                                     <tbody>
                                         @foreach($pemesanan as $pemesanan)
                                         <tr>
-                                        <td>{{$pemesanan->nama_pelanggan ?? $pemesanan->nama_user}}</td>
+                                            <td>{{$pemesanan->nama_pelanggan ?? $pemesanan->nama_user}}</td>
 
                                             <td class="font-weight-bold">{{$pemesanan->nama_kendaraan}}</td>
                                             <td>{{$pemesanan->tujuan}}</td>
@@ -72,9 +72,16 @@
                                                 @if($pemesanan->status == null)
                                                 <div class="badge badge-warning">Belum Melakukan Pembayaran</div>
                                                 @elseif($pemesanan->status == 1)
-                                                <div class="badge badge-warning">Menunggu Persetujuan</div>
+                                                <a href="#"
+                                                    class="badge badge-warning">Menunggu
+                                                    Persetujuan</a>
+                                                @elseif($pemesanan->status == 2)
+                                                <a href="#"
+                                                    class="badge badge-success ">Disetujui</a>
                                                 @else
-                                                <div class="badge badge-success">Disetujui</div>
+                                                <a href="#"
+                                                    class="badge badge-warning ">tidak
+                                                    Disetujui</a>
                                                 @endif
                                             </td>
                                             <td>
@@ -87,12 +94,24 @@
                                                     <button type="submit"
                                                         class="btn btn-success btn-lg upproveData p-2 m-2"
                                                         data-nama="{{ $pemesanan->nama_pelanggan }}">
-                                                        <i class="fa-solid fa-check"></i></a>
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <form id="upproveForm1" method="post"
+                                                    action="{{ route('batalkan', ['id_pemesanan' => $pemesanan->id_pemesanan]) }}">
+                                                    @csrf
+                                                    @method('put')
+                                                    <button type="submit"
+                                                        class="btn btn-success btn-lg upproveData1 p-2 m-2"
+                                                        data-nama="{{ $pemesanan->nama_pelanggan }}">
+                                                        <i class="fa-solid fa-rectangle-xmark"
+                                                            style="color: #ef0101;"></i>
                                                     </button>
                                                 </form>
                                                 @else
-                                                
-                                                <a href="/hapus-pemesanan/{{$pemesanan->id_pemesanan}}" class="btn btn-danger hapusPemesanan"><i
+
+                                                <a href="/hapus-pemesanan/{{$pemesanan->id_pemesanan}}"
+                                                    class="btn btn-danger hapusPemesanan"><i
                                                         class="fa-solid fa-trash-can"></i></a>
                                                 @endif
                                             </td>
@@ -229,25 +248,40 @@
                                         });
                                         </script>
 
-                                       
+                                        <!-- Kode JavaScript -->
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script>
+                                        $(document).ready(function() {
+                                            $('.upproveData1').click(function(e) {
+                                                e.preventDefault();
+                                                var nama = $(this).data('nama');
+
+                                                Swal.fire({
+                                                    title: 'Konfirmasi',
+                                                    text: "Kamu akan tidak setujui penyewaan atas nama " +
+                                                        nama + "?",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#d33',
+                                                    cancelButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Konfirmasi',
+                                                    cancelButtonText: 'Batal'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#upproveForm1').submit();
+                                                    }
+                                                });
+                                            });
+                                        });
+                                        </script>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-            <!-- content-wrapper ends -->
-            <!-- partial:partials/_footer.html -->
 
         </div>
 

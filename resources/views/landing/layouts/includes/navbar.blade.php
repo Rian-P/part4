@@ -71,7 +71,7 @@
 
                         <ul class="py-1" aria-labelledby="user-menu-button">
                             <li>
-                                <a href=""
+                                <a href="{{ route('transaksi.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Pesanan
                                     Saya</a>
                             </li>

@@ -54,16 +54,9 @@
                                             <div class="badge badge-success btn-lg">{{$user->status}}</div>
                                         </td>
                                         <td>
-                                            <a class="btn btn-danger hapusUser" data-id="{{$user->id}}" data-nama="{{$user->nama}}" ><i class="fa-solid fa-trash-can"></i></a>
-                                            <!-- <form id="hapusForm" method="POST"
-                                                action="{{ route('user.hapus', ['id' => $user->id]) }}">
-                                                @csrf
-                                                @method('GET')
-                                                <button type="submit" class="btn btn-danger btn-lg hapus-users p-2 m-2"
-                                                    data-nama="{{ $user->nama }}">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form> -->
+                                            <a class="btn btn-danger hapusUser" data-id="{{$user->id}}"
+                                                data-nama="{{$user->nama}}"><i class="fa-solid fa-trash-can"></i></a>
+                                          
 
                                         </td>
                                     </tr>
@@ -138,7 +131,7 @@
         </div>
 
 
-        <!-- content-wrapper ends -->
+     
 
     </div>
 
@@ -158,7 +151,7 @@
             })
             .then((willUpprove) => {
                 if (willUpprove) {
-                    window.location = "/hapus-users/"+
+                    window.location = "/hapus-users/" +
                         usersid + ""
                     swal("Data berhasil dihapus", {
                         icon: "success",
@@ -170,5 +163,5 @@
     });
     </script>
 
-    
+
     @endsection

@@ -32,7 +32,7 @@
                                         <td>{{$jadwal->tanggal_kembali}}</td>
                                         <td>{{$jadwal->waktu_ambil}}</td>
                                         <td>
-                                            <a  class="btn btn-success p-2 selesai" data-id="{{$jadwal->pemesananId}}" data-nama="{{$jadwal->nama_pelanggan}}" ><i class="fa-solid fa-thumbs-up"></i></a>
+                                            <a  class="btn btn-success p-2 selesai" data-id="{{$jadwal->pemesananId}}" data-nama="{{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}" ><i class="fa-solid fa-thumbs-up"></i></a>
                                         </td>          
                                     </tr>
                                     @elseif($jadwal->status == 3)
@@ -93,8 +93,7 @@
                                                 </button>
                                             </form>
 
-                                            <!-- <a href="/print/{{$jadwal->id_pemesanan}}" class="btn btn-primary btn-sm"><i
-                                                    class="fa-solid fa-file-pdf"></i></a> -->
+                                           
                                         </td>
                                     </tr>
                                     @endforeach
