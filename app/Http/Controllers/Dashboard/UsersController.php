@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Pemesanan;
+
 use Illuminate\Http\Request;
 
 // use Illuminate\Support\Facades\DB;
@@ -39,16 +41,34 @@ class UsersController extends Controller
         return redirect()->back()->with('status', 'Data Telah Ditambahkan');
     }
 
-    public function hapus($id)
-    {
-        $hapus = User::find($id);
+   
+    public function updateStatus(Request $request, $id)
+{    
+    // Find the user by ID
+    $user = User::find($id);
 
-        if ($hapus) {
-            $hapus->delete();
-
-            return redirect()->back()->with('success', 'Data berhasil dihapus');
-        }
-
-        return redirect()->back()->with('error', 'Data tidak ditemukan');
+    if (!$user) {
+        return redirect()->route('index')->with('error', 'User not found');
     }
+
+    
+    $hasPendingPemesanans = pemesanan::where('nama_pelanggan', $id)->where('status', 2)->exists();
+
+    if ($hasPendingPemesanans) {
+        return redirect()->route('index')->with('error', 'User has pending pemesanans with status 3. Cannot update status.');
+    }
+
+    
+    $user->status = $request->input('status');
+    $user->save();
+
+    
+    session()->flash('success', 'User status updated successfully');
+
+    // Laravel SweetAlert or any other library
+    // alert()->success('Success', 'User status updated successfully');
+
+    return redirect()->route('index')->with('success', 'User status updated successfully');
+}
+
 }

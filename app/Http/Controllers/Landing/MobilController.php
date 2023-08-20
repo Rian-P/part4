@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
 use App\Models\Pemesanan;
+use App\Models\dataharga;
 use Illuminate\Http\Request;
 
 class MobilController extends Controller
@@ -24,6 +25,7 @@ class MobilController extends Controller
     public function index()
     {
         $kendaraan = Kendaraan::all();
+      
 
         return view('landing.mobil', compact('kendaraan'));
     }
@@ -31,8 +33,9 @@ class MobilController extends Controller
     public function show($id)
     {
         $detail_kendaraan = Kendaraan::findOrFail($id);
+        $harga_sopir = dataharga::all();
 
-        return view('landing.detail-mobil', compact('detail_kendaraan'));
+        return view('landing.detail-mobil', compact('detail_kendaraan','harga_sopir'));
     }
 
     public function store(Request $request)

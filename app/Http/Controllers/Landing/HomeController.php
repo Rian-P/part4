@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
+use App\Models\dataharga;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,8 +19,8 @@ class HomeController extends Controller
     public function show($id)
     {
         $detail_kendaraan = Kendaraan::findOrFail($id);
-
-        return view('landing.detail-mobil', compact('detail_kendaraan'));
+        $harga_sopir = dataharga::all();
+        return view('landing.detail-mobil', compact('detail_kendaraan','harga_sopir'));
     }
 
     public function search(Request $request)

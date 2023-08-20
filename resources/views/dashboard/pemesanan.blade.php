@@ -15,6 +15,8 @@
                             <!-- Button trigger modal -->
                             <a href="/tambah-pemesanan" class="btn btn-primary mb-3"><i
                                     class="fa-solid fa-list-check pr-2"></i>Tambah Pemesanan</a>
+                                    <a href="/dataharga" class="btn btn-primary mb-3"><i
+                                    class="fa-solid fa-list-check pr-2"></i>update harga sopir</a>
                             <div class="table-responsive">
                                 <table id="tabel-data" class="table table-striped table-bordered" width="100%"
                                     cellspacing="0">
@@ -38,7 +40,7 @@
                                             <td>{{$pemesanan->nama_pelanggan ?? $pemesanan->nama_user}}</td>
 
                                             <td class="font-weight-bold">{{$pemesanan->nama_kendaraan}}</td>
-                                            <td>{{$pemesanan->tujuan}}</td>
+                                            <td>{{$pemesanan->tujuan }}  </td>
                                             <td>{{$pemesanan->nama_sopir ?? $pemesanan->sopir}}
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-primary btn-sm"
@@ -60,6 +62,7 @@
                                             <td>
                                                 @if($pemesanan->bukti_tf == null)
                                                 <div class="badge badge-danger">Belum Melakukan Pembayaran</div>
+                                                
                                                 @else
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
@@ -75,7 +78,10 @@
                                                 <a href="#"
                                                     class="badge badge-warning">Menunggu
                                                     Persetujuan</a>
-                                                @elseif($pemesanan->status == 2)
+                                                @elseif($pemesanan->status == 2 )
+                                                <a href="#"
+                                                    class="badge badge-success ">Disetujui</a>
+                                                    @elseif($pemesanan->status == 3 )
                                                 <a href="#"
                                                     class="badge badge-success ">Disetujui</a>
                                                 @else
@@ -185,6 +191,7 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+                                                    <h1>{{$pemesanan->bukti_tf}}</h1>
                                                         <img src="{{asset('storage/image/transfer/'.$pemesanan->bukti_tf)}}"
                                                             alt="Image Kendaraan" width="450px" height="300px">
                                                     </div>

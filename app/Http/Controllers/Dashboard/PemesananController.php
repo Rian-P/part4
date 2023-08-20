@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
 use App\Models\Pemesanan;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\dataharga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PemesananController extends Controller
 {
+   
+
     public function index()
     {
 
@@ -29,36 +33,80 @@ class PemesananController extends Controller
             'u.sopir as sopir',
             'c.nama as nama_sopir',
             'u.tujuan as tujuan',
+            'u.tujuan_sopir as tujuan_sopir',
             'u.waktu_ambil as waktu_ambil',
         )
             ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
             ->leftJoin('users as c', 'c.id', '=', 'u.sopir')
             ->get();
 
-        $supir = User::where('level', 'Sopir')->get();
+            $supir = User::where('level', 'Sopir')->get();
 
-        return view('dashboard.pemesanan', compact('pemesanan', 'supir'));
+            
+
+    return view('dashboard.pemesanan', compact('pemesanan', 'supir'));
     }
+   public function lihatharga(){
+    $harga = dataharga::all();
+    return view ('dashboard.insertdataharga',compact('harga'));
+   }
+   public function dataharga(Request $request){
+    $dataharga = new dataharga(); // Create a new instance of the model
+    $dataharga->harga = $request->input('harga');
+    $dataharga->save();
+
+    return redirect()->route('lihatharga')->with('success', 'Data Berhasil Ditambahkan');
+}
+public function updatedataharga(Request $request){
+    $id = $request->input('id');
+    $dataharga = dataharga::find($id); // Find the existing data by ID
+    $dataharga->harga = $request->input('harga');
+    $dataharga->save();
+
+    return redirect()->route('lihatharga')->with('success', 'Data Berhasil Diupdate');
+}
 
     public function insert()
     {
         $kendaraan = Kendaraan::all();
-        $sewa = Kendaraan::all();
-        $supir = User::where('level', 'Sopir')->get();
+        $sewa = kendaraan::all();
+        $aku = pemesanan::all();
+        $harga = dataharga::all();
+        $supir = User::where('level', 'Sopir')
+        ->where('status', 'aktif')
+        ->get();
 
-        return view('dashboard.insertPemesanan', compact('kendaraan', 'sewa', 'supir'));
+
+        return view('dashboard.insertPemesanan', compact('kendaraan', 'aku','harga','sewa', 'supir'));
     }
-
+    
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'sopir' => 'required|valid_sopir',
+            'tanggal_ambil' => 'required|date',
+            'tanggal_kembali' => 'required|date|after_or_equal:tanggal_ambil',
+            // tambahkan validasi lainnya sesuai kebutuhan
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('validationFailed', true);
+        }
+    
         $pemesanan = new Pemesanan();
         $pemesanan->nama_pelanggan = $request->input('nama_pelanggan');
         $pemesanan->nama_kendaraan = $request->input('nama_kendaraan');
         $pemesanan->tujuan = $request->input('tujuan');
+        $pemesanan->tujuan_sopir = $request->input('tujuan_sopir');
         $pemesanan->harga_sewa = $request->input('harga_sewa');
         $pemesanan->tanggal_ambil = $request->input('tanggal_ambil');
         $pemesanan->tanggal_kembali = $request->input('tanggal_kembali');
         $pemesanan->sopir = $request->input('sopir');
+        $pemesanan->bukti_tf = $request->input('bukti_tf');
+        $pemesanan->status_bayar = $request->input('status_bayar');
         $pemesanan->total_harga = $request->input('total_harga');
         $pemesanan->waktu_ambil = $request->input('waktu_ambil');
         $pemesanan->waktu_kembali = $request->input('waktu_kembali');

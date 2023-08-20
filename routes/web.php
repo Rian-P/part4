@@ -54,8 +54,9 @@ Route::group(['middleware' => ['auth', 'ceklevel:Super Admin,Admin,Sopir']], fun
     Route::get('/selesai/{id_pemesanan}', [JadwalController::class, 'selesai']);
 });
 
-Route::group(['middleware' => ['auth', 'ceklevel:Super Admin,Admin']], function () {
+Route::group(['middleware' => ['auth', 'ceklevel:Admin']], function () {
 
+   
     // KENDARAAN
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('Kendaraan');
     Route::get('/tambah-kendaraan', [KendaraanController::class, 'insert']);
@@ -63,10 +64,17 @@ Route::group(['middleware' => ['auth', 'ceklevel:Super Admin,Admin']], function 
     Route::get('/update-kendaraan{id_mobil}', [KendaraanController::class, 'updateView'])->name('update.view');
     Route::put('/edit-kendaraan/{id_mobil}', [KendaraanController::class, 'update'])->name('kendaraan.update');
     Route::delete('/hapus/{id_mobil}', [KendaraanController::class, 'hapus'])->name('kendaraan.hapus');
-
+//dataharga
+Route::get('/dataharga', [PemesananController::class, 'lihatharga'])->name('lihatharga');
+Route::post('/update-dataharga', [PemesananController::class, 'updatedataharga'])->name('update-dataharga');
+    //pengeluaran
+    Route::post('/tambah-pengeluaran', [JadwalController::class, 'tambahpengeluaran'])->name('pengeluaran');
+    Route::get('/pengeluaran', [JadwalController::class, 'pengeluaran'])->name('pengeluaran');
+    Route::get('/hapus/{id}', [JadwalController::class, 'hapuspengeluaran'])->name('hapuspengeluaran');
     // PEMESANAN
     Route::get('/pemesanan', [PemesananController::class, 'index'])->name('order');
     Route::get('/tambah-pemesanan', [PemesananController::class, 'insert']);
+    
     Route::post('/add-pemesanan', [PemesananController::class, 'store']);
     Route::put('/approve/{id_pemesanan}', [PemesananController::class, 'approve'])->name('upprove');
     Route::put('/batal/{id_pemesanan}', [PemesananController::class, 'batal'])->name('batalkan');
@@ -79,10 +87,12 @@ Route::group(['middleware' => ['auth', 'ceklevel:Super Admin']], function () {
     Route::get('/report', [JadwalController::class, 'report']);
     Route::get('/pemasukan', [JadwalController::class, 'pemasukan'])->name('pemasukan');
     Route::post('/sum-pemasukan', [JadwalController::class, 'calculateTotalPrice'])->name('calculateTotalPrice');
+    Route::post('/pemasukan', [JadwalController::class, 'store'])->name('pemasukan');
+    Route::get('/tambah-pengeluaran', [JadwalController::class, 'insert'])->name('pengeluaran');
     // USERS
-    Route::get('/users', [UsersController::class, 'index']);
+    Route::get('/users', [UsersController::class, 'index'])->name('index');
     Route::post('/add-users', [UsersController::class, 'store']);
-    Route::get('/hapus-users/{id}', [UsersController::class, 'hapus'])->name('user.hapus');
+    Route::put('/edit-users/{id}', [UsersController::class, 'updateStatus'])->name('users.update');
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:User,Admin,Super Admin']], function () {

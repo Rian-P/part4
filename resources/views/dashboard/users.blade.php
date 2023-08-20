@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($users as $user)
-
+                                    @if ($user->level === 'User' || $user->level === 'Sopir')
                                     <tr>
                                         <td>
                                             @if($user->image == 'None')
@@ -54,12 +54,17 @@
                                             <div class="badge badge-success btn-lg">{{$user->status}}</div>
                                         </td>
                                         <td>
-                                            <a class="btn btn-danger hapusUser" data-id="{{$user->id}}"
-                                                data-nama="{{$user->nama}}"><i class="fa-solid fa-trash-can"></i></a>
-                                          
+                                            <!-- Button trigger modal -->
+
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#Modal{{$user->id}}">
+                                                <i class="fa-solid fa-user"></i>
+                                            </button>
 
                                         </td>
                                     </tr>
+                                    @else
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -69,7 +74,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -98,7 +103,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">No HP</label>
                                 <input type="text" class="form-control" name="no_hp" id="exampleFormControlInput1"
-                                    placeholder="No HP" required>
+                                    placeholder="No HP" pattern="[0-9]*" maxlength="16" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Level</label>
@@ -131,9 +136,38 @@
         </div>
 
 
-     
+
 
     </div>
+    @foreach($users as $user)
+    <!-- Modal -->
+    <div class="modal fade" id="Modal{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Sopir</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/edit-users/{{$user->id}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <select class="form-select" name="status" aria-label="Default select example" required>
+                                <option value="aktif" {{ $user->status === 'aktif' ? 'selected' : '' }}>aktif</option>
+                                <option value="non-aktif" {{ $user->status === 'non-aktif' ? 'selected' : '' }}>
+                                    non-aktif</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    
 
 
     <script>
@@ -151,7 +185,7 @@
             })
             .then((willUpprove) => {
                 if (willUpprove) {
-                    window.location = "/hapus-users/" +
+                    window.location = "/edit-users/{id}" +
                         usersid + ""
                     swal("Data berhasil dihapus", {
                         icon: "success",

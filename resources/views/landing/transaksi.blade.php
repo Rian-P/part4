@@ -82,9 +82,11 @@
                         <a href="#" class="font-medium text-yellow-600 dark:yellow-red-500 hover:underline">Menunggu
                             Persetujuan</a>
                          @elseif($data->status == 2)
-                        <a href="#" class="font-medium text-yellow-600 dark:yellow-red-500 hover:underline">Disetujui</a>
-                        @else
+                        <a href="#" class="font-medium text-yellow-600 dark:yellow-red-500 hover:underline">telah dibayar</a>
+                        @elseif($data->status == 4)
                         <a href="#" class="font-medium text-red-600 dark:green-red-500 hover:underline">tidak Disetujui</a>
+                        @else
+                        <a href="#" class="font-medium text-yellow-600 dark:yellow-red-500 hover:underline">Disetujui</a>
                         @endif
                     </td>
                     <td class="px-6 py-4">
@@ -92,7 +94,12 @@
                         <form id="printForm" method="post"
                             action="{{ route('print', ['id_pemesanan' => $data->id_pemesanan]) }}">
                            
-                            @if($data->status == 2)
+                            @if($data->status == 2 )
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-lg p-2 m-2">
+                                Download Invoice
+                            </button>
+                            @elseif($data->status == 3 )
                             @csrf
                             <button type="submit" class="btn btn-success btn-lg p-2 m-2">
                                 Download Invoice

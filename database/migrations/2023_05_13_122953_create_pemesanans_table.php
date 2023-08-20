@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_pemesanan');
             $table->string('nama_pelanggan');
             $table->string('nama_kendaraan');
-            $table->string('tujuan');
+            $table->string('tujuan')->nullable();
             $table->string('harga_sewa');
             $table->string('tanggal_ambil');
             $table->string('tanggal_kembali');
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('total_harga');
             $table->string('waktu_ambil');
             $table->string('waktu_kembali');
+            $table->string('status_bayar')->nullable();
+            $table->string('tujuan_sopir')->nullable();
             $table->string('foto_ktp');
             $table->string('bukti_tf')->nullable();
             $table->string('status')->nullable();

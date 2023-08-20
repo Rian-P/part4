@@ -14,8 +14,11 @@
                         </div>
                         <form action="/add-kendaraan" class="form-car pt-4" method="post" enctype="multipart/form-data">
                             @csrf
+                            <div class="col">
+                              
+                                
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Nama Kendaraan</label>
+                                <label for="exampleFormControlInput1" class="form-label">nama kendaraan</label>
                                 <input type="text" class="form-control" name="nama_kendaraan"
                                     id="exampleFormControlInput1" placeholder="Nama Kendaraan" required>
                             </div>

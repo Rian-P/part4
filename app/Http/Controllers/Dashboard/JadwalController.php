@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Mail\BookingNotificationEmail;
 use App\Models\Pemesanan;
+use App\Models\pengeluaran;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use FPDF;
@@ -23,14 +24,65 @@ class JadwalController extends Controller
         $totalPrice = Pemesanan::where('status', '=', 3)
             ->sum('total_harga');
         $formattedPrice = number_format($totalPrice, 3, ',', '.');
+        
+         $jumlahpengeluaran= pengeluaran::all()->sum('total_pengeluaran');
+         $jumlah = number_format($jumlahpengeluaran, 3, ',', '.');
 
+         $result = $totalPrice - $jumlahpengeluaran;
+         $formattedResult = number_format($result, 3, ',', '.');
+        $pengeluaran=pengeluaran::all();
         $pemasukan = DB::table('pemesanans')
             ->where('status', '=', 3)
             ->get();
+            $pemasukan = DB::table('pemesanans as u')->select(
+                'u.id_pemesanan as id_pemesanan',
+                'u.nama_pelanggan as pelangganId',
+                'b.nama as nama_pelanggan',
+                'u.nama_pelanggan as nama_user',
+                'u.nama_kendaraan as nama_kendaraan',
+                'u.tanggal_ambil as tanggal_ambil',
+                'u.tanggal_kembali as tanggal_kembali',
+                'u.bukti_tf as bukti_tf',
+                'u.foto_ktp as foto_ktp',
+                'u.total_harga as total_harga',
+                'u.status as status',
+                'u.sopir as sopir',
+                'c.nama as nama_sopir',
+                'u.tujuan as tujuan',
+                'u.waktu_ambil as waktu_ambil',
+                'u.waktu_kembali as waktu_kembali',
+            )
+                ->leftjoin('users as b', 'b.id', '=', 'u.nama_pelanggan')
+                ->leftJoin('users as c', 'c.id', '=', 'u.sopir')
+                ->where('u.status', '=', 3)
+                ->get();
+    
+               
 
-        return view('dashboard.pemasukan', compact('pemasukan', 'formattedPrice'));
+        return view('dashboard.pemasukan', compact('pengeluaran','formattedResult','pemasukan', 'jumlah','formattedPrice'));
     }
+    public function pengeluaran()
+    {
+        $pengeluaran = pengeluaran::all();
+        return view('dashboard.insertpengeluaran',compact('pengeluaran'));
+    }
+    public function hapuspengeluaran($id)
+{
+    $hapus = pengeluaran::findOrFail($id); // Pass the $id argument to findOrFail
+    $hapus->delete();
+    return redirect()->back()->with('status', 'Data telah dihapus');
+}
 
+    public function tambahpengeluaran(Request $request){
+        $pengeluaran = new pengeluaran();
+        $pengeluaran->nama_pengeluaran = $request->input('nama_pengeluaran');
+        $pengeluaran->keterangan = $request->input('keterangan');
+        $pengeluaran->total_pengeluaran = $request->input('total_pengeluaran');
+        $pengeluaran->save();
+        
+
+        return redirect()->back()->with('status', 'Data telah dihapus');
+    }
     public function index()
     {
 
@@ -56,7 +108,7 @@ class JadwalController extends Controller
             ->leftJoin('users as c', 'c.id', '=', 'u.sopir')
             ->where('u.status', '=', 2)
             ->get();
-
+        // dd($jadwal);
         $sopir = Auth::user()->id;
 
         $response = DB::table('pemesanans as u')->select(
@@ -118,21 +170,43 @@ class JadwalController extends Controller
     {
         ini_set('max_execution_time', 120); 
 
-
             $kwitansi = DB::table('pemesanans')
-            ->select('pemesanans.*', 'users.nama', 'users.no_hp')
-            ->leftJoin('users','pemesanans.sopir','=','users.id')
-            ->where('pemesanans.id_pemesanan','=',$id)
-            ->where('users.level','=','sopir')
+            ->select(
+                'pemesanans.id_pemesanan as id_pemesanan',
+                'pemesanans.nama_pelanggan as nama',
+                'pemesanans.nama_kendaraan as nama_kendaraan',
+                'pemesanans.tujuan as tujuan',
+                'pemesanans.harga_sewa as harga_sewa',
+                'pemesanans.tanggal_ambil as tanggal_ambil',
+                'pemesanans.tanggal_kembali as tanggal_kembali',
+                'pemesanans.sopir as sopir',
+                'pemesanans.total_harga as total_harga',
+                'pemesanans.waktu_ambil as waktu_ambil',
+                'pemesanans.waktu_kembali as waktu_kembali',
+                'pemesanans.foto_ktp as foto_ktp',
+                'pemesanans.bukti_tf as bukti_tf',
+                'pemesanans.status as status',
+                'pemesanans.created_at as created_at',
+                'pemesanans.updated_at as updated_at',
+                'sopir.nama as nama_sopir', 
+                'sopir.no_hp as no_hp_sopir', 
+                'pelanggan.nama as nama_pelanggan', 
+                'pelanggan.no_hp as no_hp_pelanggan'
+            )
+            ->leftJoin('users as sopir', 'sopir.id', '=', 'pemesanans.sopir')
+            ->leftJoin('users as pelanggan', 'pelanggan.id', '=', 'pemesanans.nama_pelanggan')
+            ->where('pemesanans.id_pemesanan', '=', $id)
             ->first();
+            // dd($kwitansi);
+        
+             
             $ambil = Carbon::parse($kwitansi->tanggal_ambil);
             $kembali = Carbon::parse($kwitansi->tanggal_kembali);
             $selisih = $ambil->diffInDays($kembali);
             $kwitansi->selisih_hari = $selisih;
-
         
 
-
+            
        
         $logoPath = public_path('images/icon/iconbg.png');
         $logo = Image::make($logoPath)->encode('data-url')->encoded;
@@ -142,37 +216,39 @@ class JadwalController extends Controller
 
       
         $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-
-       
+        $dompdf->loadHtml($html);      
         $dompdf->render();
 
         
         return $dompdf->stream('kwitansi.pdf');
     }
+    
+
+
+
 
     public function calculateTotalPrice(Request $request)
     {
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $totalPrice = Pemesanan::where('status', '=', 2)
+        $totalPrice = Pemesanan::where('status', '=', 3)
             ->sum('total_harga');
-        $formattedPrice = number_format($totalPrice, 2, ',', '.');
+        $formattedPrice = number_format($totalPrice, 3, ',', '.');
 
         $pemasukan = DB::table('pemesanans')
-            ->where('status', '=', 2)
+            ->where('status', '=', 3)
             ->get();
 
-        $report = Pemesanan::where('status', '=', 2)
+        $report = Pemesanan::where('status', '=', 3)
             ->whereBetween('tanggal_ambil', [$startDate, $endDate])
             ->get();
 
-        $pemesanan = Pemesanan::where('status', '=', 2)
+        $pemesanan = Pemesanan::where('status', '=', 3)
             ->whereBetween('tanggal_ambil', [$startDate, $endDate])
             ->sum('total_harga');
 
-        $formattedTotal = number_format($pemesanan, 2, ',', '.');
+        $formattedTotal = number_format($pemesanan, 3, ',', '.');
 
         return view('dashboard.pemasukan', compact('formattedTotal', 'formattedPrice', 'pemasukan', 'report'));
     }

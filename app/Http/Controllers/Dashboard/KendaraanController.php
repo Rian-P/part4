@@ -29,6 +29,7 @@ class KendaraanController extends Controller
 
         $kendaraan = new Kendaraan();
         $kendaraan->nama_kendaraan = $request->input('nama_kendaraan');
+ 
         $kendaraan->no_kendaraan = $request->input('no_kendaraan');
         $kendaraan->tipe = $request->input('tipe');
         $kendaraan->tahun = $request->input('tahun');

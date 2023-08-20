@@ -16,9 +16,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md mb-4 mb-lg-0 stretch-card transparent pb-3">
+                <div class="card card-light-blue">
+                    <div class="card-body">
+                        <h3 class="mb-4"><i class="fa-solid fa-info mr-2"></i>Total
+                            pendapatan</h3>
+                        <p class="fs-30 mb-2">Rp. {{$formattedResult}}</p>
+                    </div>
+                </div>
+            </div>
             @else
             @endif
-
+           
             <!-- Tampilan Form -->
             <form action="{{ route('calculateTotalPrice') }}" method="POST">
                 @csrf
@@ -55,7 +64,7 @@
                 <div class="card">
                     <div class="card-body">
                         @if(isset($report))
-                        <a href="/report" class="btn btn-warning float-end"><i class="fa-solid fa-file-pdf"></i></a>
+
                         <div class="table-responsive">
                             <table id="tabel-data" class="table table-striped table-bordered" width="100%"
                                 cellspacing="0">
@@ -76,10 +85,10 @@
                                     @foreach($report as $jadwal)
                                     <tr>
                                         <td>
-                                            {{$jadwal->nama_pelanggan}}
+                                            {{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}
                                         </td>
                                         <td> {{$jadwal->nama_kendaraan}}</td>
-                                        <td>{{$jadwal->sopir}}</td>
+                                        <td>{{$jadwal->nama_sopir ?? $jadwal->sopir}}</td>
                                         <td>{{$jadwal->tanggal_ambil}}</td>
                                         <td>{{$jadwal->tanggal_kembali}}</td>
                                         <td>{{$jadwal->waktu_kembali}}</td>
@@ -123,10 +132,10 @@
                                     @foreach($pemasukan as $jadwal)
                                     <tr>
                                         <td>
-                                            {{$jadwal->nama_pelanggan}}
+                                            {{$jadwal->nama_pelanggan ?? $jadwal->nama_user}}
                                         </td>
                                         <td> {{$jadwal->nama_kendaraan}}</td>
-                                        <td>{{$jadwal->sopir}}</td>
+                                        <td>{{$jadwal->nama_sopir ?? $jadwal->sopir}}</td>
                                         <td>{{$jadwal->tanggal_ambil}}</td>
                                         <td>{{$jadwal->tanggal_kembali}}</td>
                                         <td>{{$jadwal->waktu_kembali}}</td>
@@ -153,13 +162,40 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h2>pengeluaran</h2>
+                    <p class="fs-30 mb-2">Rp. {{$jumlah}}</p>
+                    <div class="table-responsive">
+                        <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>nama pengeluaran</th>
+                                    <th>total harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tbody>
+                                @foreach($pengeluaran as $item)
+                                <tr>
+                                    <td>
+                                        {{$item->nama_pengeluaran}}
+                                    </td>
+                                    <td> {{$item->total_pengeluaran}}</td>
+                                    <td> {{$item->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>      
         </div>
 
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-
-        <!-- partial -->
+       
     </div>
 </div>
 
-@endsection
+    @endsection

@@ -69,7 +69,7 @@
         <img src="{{ $logo}}" alt="Logo" class="h-8 w-8 mr-2">
     </div>
     <div class="invoice-details">
-        <h4>Customer Name: {{$latter->nama_pelanggan}}</h4>
+        <h4>Customer Name: {{$latter->nama_pelanggan ?? $latter->nama}}</h4>
         <h4>Rental Deadline: {{$latter->tanggal_ambil}} - {{$latter->tanggal_kembali}}</h4>
         <table>
             <thead>
@@ -84,9 +84,9 @@
             <tbody>
                 <tr>
                     <td>{{$latter->nama_kendaraan}}</td>
-                    <td>{{$latter->nama}}</td>
+                    <td>{{$latter->nama_sopir ?? $latter->sopir}}</td>
                     <td>{{ $latter->selisih_hari }} Hari</td>
-                    <td>{{$latter->no_hp}}</td>
+                    <td>{{$latter->no_hp_sopir }}</td>
                     <td>{{$latter->harga_sewa}} / 24 Jam</td>
 
                 </tr>

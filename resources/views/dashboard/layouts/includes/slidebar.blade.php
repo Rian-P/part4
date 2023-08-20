@@ -29,7 +29,7 @@
           </a>
         </li>
         @endif
-        @if(auth()->user()->level == "Super Admin" or auth()->user()->level == "Admin")
+        @if(auth()->user()->level == "Admin")
         <li class="nav-item">
           <a class="nav-link" href="/kendaraan">
             <i class="icon-columns menu-icon"></i>
@@ -56,6 +56,14 @@
           <a class="nav-link" href="/pemasukan">
             <i class="icon-grid-2 menu-icon"></i>
             <span class="menu-title">pendapatan</span>
+          </a>
+        </li>
+        @endif
+        @if(auth()->user()->level=="Admin")
+        <li class="nav-item">
+          <a class="nav-link" href="/pengeluaran">
+            <i class="icon-grid-2 menu-icon"></i>
+            <span class="menu-title">pengeluaran</span>
           </a>
         </li>
         @endif

@@ -18,7 +18,7 @@ class Mobil extends Model
         'tipe',
         'no_kendaraan',
         'tahun',
-        'harga_12_jam',
+       
         'harga_24_jam',
         'deskripsi',
         'image',

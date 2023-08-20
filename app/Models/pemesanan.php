@@ -26,5 +26,8 @@ class Pemesanan extends Model
         'waktu_kembali',
         'foto_ktp',
         'bukti_tf',
+        'status_bayar',
+        'tujuan_sopir',
+        'status'
     ];
 }

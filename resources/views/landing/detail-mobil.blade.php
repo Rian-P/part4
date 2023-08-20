@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prapatan Jaya Trans</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -40,7 +40,7 @@
                         </div>
 
                         <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">
-                            {{ $detail_kendaraan->nama_kendaraan }}</h4>
+                            {{ $detail_kendaraan->jenis }}</h4>
 
                         <div class="mt-1">
                             Rp .{{ $detail_kendaraan->harga_24_jam }}
@@ -112,17 +112,22 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label for="sopir"
-                                        class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Opsi
-                                        Sopir</label>
+                                    <label for="sopir" class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                        Opsi Sopir
+                                    </label>
                                     <select name="sopir" id="sopir" required
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        onchange="hitungTotalHarga()">
                                         <option selected disabled value="">-- Opsi Sopir --</option>
-                                        <option value="Menggunakan Sopir">Menggunakan Sopir</option>
-                                        <option value="Tidak Menggunakan Sopir">Tidak Menggunakan Sopir</option>
+                                        <option value="tidak_menggunakan_sopir">Tidak menggunakan sopir</option>
+                                        @foreach($harga_sopir as $t)
+                                        <option value="menggunakan_sopir" harga="{{$t->harga}}">menggunakan sopir
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
+
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="nama_kendaraan"
@@ -156,21 +161,21 @@
                                 </div>
                             </div>
 
-                         
-                            
+
+
                             <div id="{{$detail_kendaraan->id_mobil}}" class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_ambil"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Tanggal
                                         Ambil</label>
-                                    <input  type="text" id="tanggal_ambil" name="tanggal_ambil"
+                                    <input type="text" id="tanggal_ambil" name="tanggal_ambil"
                                         min="<?= date('Y-m-d') ?>"
                                         class=" border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         id="exampleFormControlInput1" placeholder="Tanggal Ambil" required>
                                 </div>
-                                 
+
                             </div>
-                            <div  id="{{$detail_kendaraan->id_mobil}}" class="w-full lg:w-1/2 px-4">
+                            <div id="{{$detail_kendaraan->id_mobil}}" class="w-full lg:w-1/2 px-4">
                                 <div class="relative w-full mb-3">
                                     <label for="tanggal_kembali"
                                         class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -178,7 +183,8 @@
                                     <input type="text" id="tanggal_kembali" name="tanggal_kembali"
                                         min="<?= date('Y-m-d') ?>"
                                         class="border-0 px-3 py-3  text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-15"
-                                        id="exampleFormControlInput1"  placeholder="Tanggal Kembali" onchange="hitungTotalHarga()" required>
+                                        id="exampleFormControlInput1" placeholder="Tanggal Kembali"
+                                        onchange="hitungTotalHarga()" required>
                                 </div>
                             </div>
                             @if (Auth::check())
@@ -253,7 +259,7 @@
         </div>
     </section>
 
-    
+
     <script>
     document.getElementById('foto_ktp').addEventListener('change', function(event) {
         var file = event.target.files[0];
@@ -272,72 +278,97 @@
         reader.readAsDataURL(file);
     });
     </script>
- 
- 
-<script>
-    $(document).ready(function() {
-  $.ajax({
-    url: "/get-disabled-dates/{{$detail_kendaraan->nama_kendaraan}}",
-    method: "GET",
-    success: function(response) {
-      var datesForDisable = response.dates;
-      $('#tanggal_ambil').datepicker({
-        dateFormat: 'yy-mm-dd',
-        autoclose: true,
-        beforeShowDay: function(date) {
-          var selectedDate = $('#tanggal_ambil').val(); // Get the selected date from the input field
-          var year = date.getFullYear();
-          var month = ("0" + (date.getMonth() + 1)).slice(-2);
-          var day = ("0" + date.getDate()).slice(-2);
-          var formattedDate = year + "-" + month + "-" + day;
-          var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
-          return [!isDisabled];
-        }
-      });
-    },
-    error: function(xhr, status, error) {
-      console.log(error);
-    }
-  });
-});
 
-</script>
-<script>
-    $(document).ready(function() {
-  $.ajax({
-    url: "/get-disabled-dates1/{{$detail_kendaraan->nama_kendaraan}}",
-    method: "GET",
-    success: function(response) {
-      var datesForDisable = response.dates;
-      $('#tanggal_kembali').datepicker({
-        dateFormat: 'yy-mm-dd',
-        autoclose: true,
-        beforeShowDay: function(date) {
-          var selectedDate = $('#tanggal_kembali').val(); // Get the selected date from the input field
-          var year = date.getFullYear();
-          var month = ("0" + (date.getMonth() + 1)).slice(-2);
-          var day = ("0" + date.getDate()).slice(-2);
-          var formattedDate = year + "-" + month + "-" + day;
-          var isDisabled = (datesForDisable.indexOf(formattedDate) !== -1);
-          return [!isDisabled];
-        }
-      });
-    },
-    error: function(xhr, status, error) {
-      console.log(error);
-    }
-  });
-});
 
-</script>
     <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "/get-disabled-dates/{{$detail_kendaraan->nama_kendaraan}}",
+            method: "GET",
+            success: function(response) {
+                var datesForDisable = response.dates;
+                $('#tanggal_ambil').datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    autoclose: true,
+                    beforeShowDay: function(date) {
+                        var currentDate = new Date();
+                        var year = date.getFullYear();
+                        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                        var day = ("0" + date.getDate()).slice(-2);
+                        var formattedDate = year + "-" + month + "-" + day;
+                        var isDisabled = (datesForDisable.indexOf(formattedDate) !== -
+                        1);
+                        var isBeforeToday = date < currentDate;
+                        return [!isDisabled && !isBeforeToday];
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "/get-disabled-dates1/{{$detail_kendaraan->nama_kendaraan}}",
+            method: "GET",
+            success: function(response) {
+                var datesForDisable = response.dates;
+                $('#tanggal_kembali').datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    autoclose: true,
+                    beforeShowDay: function(date) {
+                        var selectedDate = $('#tanggal_kembali').val();
+                        var currentDate = new Date();
+                        var year = date.getFullYear();
+                        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                        var day = ("0" + date.getDate()).slice(-2);
+                        var formattedDate = year + "-" + month + "-" + day;
+                        var isDisabled = (datesForDisable.indexOf(formattedDate) !== -
+                        1);
+                        var isBeforeToday = date < currentDate;
+                        return [!isDisabled && !isBeforeToday];
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+    </script>
+
+    <script>
+    // function hitungTotalHarga() {
+    //     const hargaSewa = document.getElementById('harga_sewa').value;
+    //     const tanggalAwal = new Date(document.getElementById('tanggal_ambil').value);
+    //     const tanggalAkhir = new Date(document.getElementById('tanggal_kembali').value);
+
+    //     const selisihHari = Math.round((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24));
+    //     const totalHarga = hargaSewa * selisihHari;
+    //     document.getElementById('total_harga').value = totalHarga.toFixed(3);
+    // }
     function hitungTotalHarga() {
-        const hargaSewa = document.getElementById('harga_sewa').value;
+        const hargaSewa = parseFloat(document.getElementById('harga_sewa').value);
+        const selectElement = document.getElementById('sopir');
+        const selectedOptionValue = selectElement.value;
+
+        let hargaSopir = 0;
+        if (selectedOptionValue === 'menggunakan_sopir') {
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            hargaSopir = parseFloat(selectedOption.getAttribute('harga'));
+        }
+
         const tanggalAwal = new Date(document.getElementById('tanggal_ambil').value);
         const tanggalAkhir = new Date(document.getElementById('tanggal_kembali').value);
 
         const selisihHari = Math.round((tanggalAkhir - tanggalAwal) / (1000 * 60 * 60 * 24));
-        document.getElementById('total_harga').value = hargaSewa * selisihHari;
+
+        const totalHarga = (hargaSewa * selisihHari) + (hargaSopir * selisihHari);
+        document.getElementById('total_harga').value = totalHarga.toFixed(3);
     }
 
     function setKembali() {

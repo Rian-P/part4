@@ -33,8 +33,8 @@
                                         <img src="{{asset('storage/image/kendaraan/'.$kendaraan->image)}}"
                                             alt="Image Kendaraan" width="100px" height="100px">
                                     </td>
-                                    <td class="font-weight-bold">{{$kendaraan->nama_kendaraan}}</td>
-                                    <td>{{$kendaraan->no_kendaraan}}</td>
+                                    <td class="font-weight-bold">{{$kendaraan->no_kendaraan}}</td>
+                                    <td>{{$kendaraan->nama_kendaraan}}</td>
                                     <td>{{$kendaraan->tipe}}</td>
                                     <td>{{$kendaraan->harga_24_jam}}</td>
                                     <td>
